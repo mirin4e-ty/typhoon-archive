@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TYPHOON ARCHIVE v0.3.4</title><style>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>TYPHOON ARCHIVE v0.3.17</title><style>
 :root{color-scheme:dark;--bg:#071523;--panel:#102438;--panel2:#173149;--line:#29485e;--text:#e9f5ff;--muted:#9eb7c8;--aqua:#5de0e2;--pink:#ef85bf}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,-apple-system,'Noto Sans JP',sans-serif}header{padding:17px 16px 12px;background:linear-gradient(120deg,#102c46,#071523);border-bottom:1px solid var(--line)}h1{margin:0;font-size:21px;letter-spacing:.09em}small,.muted{color:var(--muted)}.tag{display:inline-block;background:#22455b;border-radius:30px;padding:2px 8px;font-size:11px;color:#b7f3f3}.layout{max-width:1280px;margin:auto;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(320px,1fr);gap:12px;padding:12px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}.pad{padding:14px}.tabs{display:flex;gap:6px;padding:9px 12px;background:#0d2133;overflow:auto}.tabs button{white-space:nowrap}.tabs button.active{background:#31748d;color:#fff}button,select{font:inherit;background:#214158;color:var(--text);border:1px solid #365e76;border-radius:9px;padding:9px 12px;cursor:pointer}button:hover{background:#2d5870}button:disabled{opacity:.4;cursor:default}.primary{background:#187f92;border-color:#35a8b7;font-weight:700}.controls{display:flex;gap:7px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:var(--panel2);padding:10px;border-radius:10px}.stat strong{font-size:20px;display:block}.stat small{font-size:11px}.section{border-top:1px solid var(--line);padding:12px 14px}h2{font-size:15px;margin:0 0 9px}#map{height:430px;background:#092b42}.fallback{height:430px;display:grid;place-items:center;background:#092b42;padding:20px;text-align:center}canvas{width:100%;height:190px;display:block;background:#0b2032;border-radius:8px}.event{padding:6px 0;border-bottom:1px solid #233f52}.entry{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:left;margin:5px 0;background:#16344a}.pill{font-size:11px;border-radius:12px;padding:2px 7px;background:#294b62}.warning{color:#f7c98d}.hidden{display:none!important}.layout.single-tab{grid-template-columns:minmax(0,1fr)}.slider{width:100%}.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.detail{font-size:12px;color:#b5d2e0}footer{padding:10px 16px 30px;max-width:1280px;margin:auto;color:#9eb7c8;font-size:12px}.leaflet-container{background:#092b42}@media(max-width:780px){.layout{grid-template-columns:1fr;padding:8px;gap:8px}#map,.fallback{height:350px}.stat strong{font-size:17px}header{padding:13px}}
 /* DOM image tile engine: avoids canvas / Leaflet compositor issues. */
 #map{position:relative;overflow:hidden;touch-action:none;user-select:none;background:#10364d;isolation:isolate}
@@ -25,6 +25,8 @@
 #lifetimeOverlay.hidden{display:none!important}.fullscreen-head{padding:10px;display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 #fullscreenMapSlot{flex:1;min-height:150px;display:flex;padding:0 8px}#fullscreenMapSlot #lifetimeMap{flex:1;height:auto;min-height:0;touch-action:none;cursor:grab}#fullscreenInfo{padding:10px 14px}
 #lifetimeMap{touch-action:pan-y}#lifetimeOverlay:not(.hidden) #lifetimeMap,#lifetimeOverlay:not(.hidden) #lifetimeMap *{touch-action:none!important}.ty-periods{margin-top:12px;border-top:1px solid #355168;padding-top:12px}.ty-periods .ty-bar{display:flex;width:100%;height:16px;border-radius:5px;overflow:hidden;gap:1px;margin:8px 0}.ty-periods .ty-part{min-width:0;cursor:pointer}.ty-periods .ty-row{padding:7px 0;border-bottom:1px solid #29485e}
+
+.field-controls{padding:9px 12px;background:#102a3f;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.field-controls select{min-height:44px;max-width:100%}.field-controls .detail{flex-basis:100%;font-size:11px;line-height:1.6}.field-budget,.field-year{margin-top:12px;border:1px solid #345b73;border-radius:10px;padding:10px}.field-budget summary,.field-year summary{cursor:pointer;min-height:32px;font-weight:700}.field-year-content button{display:block;margin:8px 0;width:100%;text-align:left}.field-scroll{overflow-x:auto}.field-table{border-collapse:collapse;width:100%;font-size:12px;white-space:nowrap}.field-table td,.field-table th{padding:6px;border-bottom:1px solid #345b73;text-align:right}.field-table td:first-child,.field-table th:first-child{text-align:left}#fieldBudget p,.field-year-content p{font-size:12px;line-height:1.7}.field-full{flex-shrink:0}.field-full .detail{max-height:72px;overflow:auto}
 </style><style>
 .annual-block{background:#153148;border:1px solid #31546c;border-radius:12px;padding:12px;margin:14px 0}
 .annual-block h3{margin:4px 0 10px;font-size:1.06rem}
@@ -54,7 +56,7 @@
 .annual-count{font-size:.84rem;color:#b5d4e5;margin-bottom:6px}
 .annual-action{margin:8px 0 10px}
 @media(max-width:700px){.annual-compare{grid-template-columns:1fr}.annual-map{height:48vh;min-height:300px}}
-</style></head><body><header><h1>🌀 TYPHOON ARCHIVE <span class="tag">v0.3.13 BETA</span></h1><small>北西太平洋・架空熱帯低気圧生涯観測所 ｜ 6時間ごとに記録</small></header><div class="layout"><main class="panel"><div class="tabs"><button class="active" data-tab="observe">観測</button><button data-tab="archive">個体図鑑</button><button data-tab="years">年鑑</button><button data-tab="about">仕様</button></div><div id="observe"><div class="pad"><div class="controls" style="align-items:center;justify-content:space-between"><div><strong id="date"></strong><div class="detail" id="season"></div></div><span class="pill" id="activeCount"></span></div><div class="controls" style="margin-top:10px"><button class="primary" id="step">＋6時間</button><button id="day">＋1日</button><button id="month">＋1か月</button><button id="year">＋1年</button></div></div><div id="map"><div id="tileLayer"></div><svg id="trackLayer" aria-label="台風の経路と現在位置"></svg><div id="mapUi"><button id="zoomIn" aria-label="拡大">+</button><button id="zoomOut" aria-label="縮小">−</button><button id="homeMap" aria-label="初期位置">⌂</button></div><div id="mapBadge">地図 © OpenStreetMap contributors</div></div><div id="mapTools"><button id="mapSwap" type="button">地図を切り替える</button><button id="mapReload" type="button">地図を再取得</button><span id="mapDebug">地図を確認中…</span></div><div id="mapFallback" class="fallback hidden">地図の読み込みができませんでした。<br>インターネット接続があれば地図を表示できます。観測と図鑑は引き続き使えます。</div><div class="section"><h2>観測対象</h2><div id="stormList"></div></div></div><div id="archive" class="hidden"><div class="pad"><h2>📚 全個体図鑑</h2><div class="detail">台風にならず消えた個体も保存。消滅・移行後も同一IDで追跡。</div><div class="controls" style="margin:10px 0"><select id="sort"><option value="recent">新しい順</option><option value="pressure">最低気圧順</option><option value="lifetime">長寿順</option></select><button id="export">記録を書き出す</button><button id="import">記録を読み込む</button><input type="file" id="file" accept="application/json" hidden></div><div class="controls" style="margin:10px 0"><input id="archiveSearch" type="search" placeholder="個体IDを検索（例：2031-011）" style="flex:1;min-width:160px"><select id="archiveYear"><option value="all">全年</option></select><select id="archiveType"><option value="all">全個体</option><option value="ty">台風到達</option><option value="td">未到達</option></select></div><div id="archiveList"></div></div></div><div id="years" class="hidden"><div class="pad"><h2>📅 年鑑</h2><div class="detail">発生数は台風未到達の熱帯擾乱も含みます。月別最低気圧は、その月に観測された全個体の記録から集計します。</div><div class="annual-action"><button id="annualCompareOpen" type="button" class="primary">🗺️ 年間進路図・2年比較を開く</button></div><div id="yearList"></div></div></div><div id="about" class="hidden"><div class="pad"><h2>試作版について</h2><p>現実の地球の地図上で動く、架空の気象シミュレーションです。発生年ごとに個体番号を採番し、月別年鑑と地理的な観測日誌を備えています。月ごとの発生頻度・発生位置を滑らかに変化させ、年ごとの活動度にも差をつけています（発生数は熱帯擾乱の目安であり、台風数ではありません）。6時間刻みの季節性、緯度、環境シア、海面水温・湿度・海洋熱・鉛直シアの近似値を用います。発達上限は環境によって変化し、20日での強制終了は行わず、弱い循環の持続時間と海面水温・シア・湿度・陸地による環境悪化を蓄積して追跡終了を判定します。海陸はGSHHS海岸線データに基づいて中心位置と周囲約150kmの陸地割合を判定します（簡略化された海岸線であり、湖・小島などには誤差があります）。陸上の熱帯低気圧は基本的に衰弱する簡易モデルです。<strong>現実の予報や物理数値予報モデルではありません。v0.3.8では高気圧の張り出しと移動、貿易風・モンスーン、偏西風の蛇行、移動する気圧の谷を組み合わせた共通の環境風へ更新しました。特定地域への上陸や転向地点を指定する処理はありません。進路分布は未検証です。</strong></p><p>同じ個体が熱帯低気圧→台風→熱帯低気圧→台風へ変わることがあります。温帯低気圧へ移行後も数ステップ追跡し、低気圧としての追跡終了まで残します。</p><p>強風域は東西南北で別の半径を持ち、進路上の色は最大風速の階級で変わります。地図の風域は概略の表示です。</p><p>記録はブラウザ内に保存されます。ブラウザのデータ消去で失われるため、定期的にJSONでバックアップしてください。実在台風との比較は次期開発項目です。過去の観測記録は新しい海陸判定や季節性で書き換えません。v0.3.13では低緯度での発達抑制と、停滞時の海洋冷却の簡易履歴を追加し、台風活動履歴の判定を統一しました。</p><button id="wipe" class="warning">全データを初期化</button></div></div></main><aside class="panel" id="detailPanel"><div class="pad"><div class="controls" style="margin-bottom:12px"><button id="detailBack" type="button">← 一覧に戻る</button></div><div class="controls" style="justify-content:space-between;align-items:center"><h2 style="margin:0">🔭 個体詳細</h2><span id="status" class="tag">選択なし</span></div><h2 id="stormName" style="font-size:20px;margin-top:10px">地図または一覧から選択</h2><div class="stats"><div class="stat"><small>中心気圧</small><strong id="p">—</strong><small>hPa</small></div><div class="stat"><small>最大風速</small><strong id="wind">—</strong><small>m/s</small></div><div class="stat"><small>経過時間</small><strong id="age">—</strong><small>時間</small></div></div><div class="detail" id="position" style="margin-top:10px"></div></div><div id="detailBody"><div class="section"><div class="controls" style="align-items:center;justify-content:space-between"><h2 style="margin:0">🗺️ 生涯進路図</h2><button id="expandLifetime" type="button">⛶ 全画面で見る</button></div><div class="detail" style="margin-bottom:8px">発生から追跡終了まで。進路上の点をタップすると、その時刻の観測記録へ移動します。</div><div id="lifetimeMapHome"><div id="lifetimeMap"><div id="lifetimeTiles"></div><svg id="lifetimeTrack"></svg></div></div><div id="lifetimeLegend"></div><div id="typhoonPeriods" class="ty-periods"></div><div id="lifetimeInfo" class="detail" style="margin-top:8px"></div></div><div class="section"><h2>中心気圧の推移</h2><canvas id="chart" width="700" height="240"></canvas></div><div class="section"><h2>強風域・暴風域</h2><canvas id="windCanvas" width="700" height="320"></canvas><div id="radii" class="detail"></div></div><div class="section" id="replaySection"><h2>生涯再生</h2><input id="replay" class="slider" type="range" min="0" max="0" value="0"><div class="controls"><button id="back">◀ 6時間</button><button id="forward">6時間 ▶</button><button id="latest">最新へ</button></div><div class="detail" id="replayLabel"></div></div><div class="section"><h2>観測日誌</h2><div id="events"></div></div></div></aside></div><footer>試作ベータ版。台風の数値・発生頻度・進路は統計検証前の簡易モデルです。背景地図は OpenStreetMap contributors / CARTO の画像を使用（ネット接続が必要）。</footer><div id="lifetimeOverlay" class="hidden" role="dialog" aria-modal="true" aria-label="生涯進路図の拡大表示"><div class="fullscreen-head"><strong id="fullscreenTitle">🗺️ 生涯進路図</strong><div class="controls"><button id="lifetimePlus" type="button">＋</button><button id="lifetimeMinus" type="button">－</button><button id="lifetimeReset" type="button">全体表示</button><button id="closeLifetime" type="button">✕ 閉じる</button></div></div><div id="fullscreenMapSlot"></div><div id="fullscreenInfo" class="detail"></div><div class="detail" style="padding:4px 12px 10px">ドラッグで移動・ピンチで拡大縮小。観測点をタップすると詳細の時刻も切り替わります。</div></div><div id="annualOverlay" class="hidden" role="dialog" aria-modal="true" aria-label="年間進路図の比較"><div class="annual-top"><strong>🗺️ 年間進路図・2年比較</strong><div class="controls"><button id="annualZoomIn" type="button">＋</button><button id="annualZoomOut" type="button">－</button><button id="annualReset" type="button">全体表示</button><button id="annualClose" type="button">✕ 閉じる</button></div></div><p class="detail">任意の2年を比較。地図の移動・ピンチ拡大は両側に連動します。進路をタップすると個体を選べます。発生年ごとに生涯全進路を表示。</p><div class="annual-compare"><section class="annual-pane"><div class="annual-options"><select id="annualYearA" aria-label="比較Aの年"></select><select id="annualFilterA" aria-label="比較Aの対象"><option value="all">全個体</option><option value="ty">台風到達のみ</option><option value="td">未到達のみ</option></select></div><div id="annualCountA" class="annual-count"></div><div class="annual-map" id="annualMapA"><div class="annual-tiles" id="annualTilesA"></div><svg class="annual-svg" id="annualSvgA"></svg></div><div id="annualPickA" class="annual-pick">進路をタップすると個体番号を表示</div></section><section class="annual-pane"><div class="annual-options"><select id="annualYearB" aria-label="比較Bの年"></select><select id="annualFilterB" aria-label="比較Bの対象"><option value="all">全個体</option><option value="ty">台風到達のみ</option><option value="td">未到達のみ</option></select></div><div id="annualCountB" class="annual-count"></div><div class="annual-map" id="annualMapB"><div class="annual-tiles" id="annualTilesB"></div><svg class="annual-svg" id="annualSvgB"></svg></div><div id="annualPickB" class="annual-pick">進路をタップすると個体番号を表示</div></section></div><p class="detail">進路色は個体ごとに区別しています（勢力階級色ではありません）。選択した個体を強調表示できます。背景地図 © OpenStreetMap contributors</p></div><script>
+</style></head><body><header><h1>🌀 TYPHOON ARCHIVE <span class="tag">v0.3.17 BETA</span></h1><small>北西太平洋・架空熱帯低気圧生涯観測所 ｜ 6時間ごとに記録</small></header><div class="layout"><main class="panel"><div class="tabs"><button class="active" data-tab="observe">観測</button><button data-tab="archive">個体図鑑</button><button data-tab="years">年鑑</button><button data-tab="about">仕様</button></div><div id="observe"><div class="pad"><div class="controls" style="align-items:center;justify-content:space-between"><div><strong id="date"></strong><div class="detail" id="season"></div></div><span class="pill" id="activeCount"></span></div><div class="controls" style="margin-top:10px"><button class="primary" id="step">＋6時間</button><button id="day">＋1日</button><button id="month">＋1か月</button><button id="year">＋1年</button></div></div><div class="field-controls"><label for="fieldObserve">気象場</label><select id="fieldObserve" aria-label="観測画面の気象場"></select><div id="fieldObserveInfo" class="detail" aria-live="polite"></div></div><div id="map"><div id="tileLayer"></div><svg id="trackLayer" aria-label="台風の経路と現在位置"></svg><div id="mapUi"><button id="zoomIn" aria-label="拡大">+</button><button id="zoomOut" aria-label="縮小">−</button><button id="homeMap" aria-label="初期位置">⌂</button></div><div id="mapBadge">地図 © OpenStreetMap contributors</div></div><div id="mapTools"><button id="mapSwap" type="button">地図を切り替える</button><button id="mapReload" type="button">地図を再取得</button><span id="mapDebug">地図を確認中…</span></div><div id="mapFallback" class="fallback hidden">地図の読み込みができませんでした。<br>インターネット接続があれば地図を表示できます。観測と図鑑は引き続き使えます。</div><div class="section"><h2>観測対象</h2><div id="stormList"></div></div></div><div id="archive" class="hidden"><div class="pad"><h2>📚 全個体図鑑</h2><div class="detail">台風にならず消えた個体も保存。消滅・移行後も同一IDで追跡。</div><div class="controls" style="margin:10px 0"><select id="sort"><option value="recent">新しい順</option><option value="pressure">最低気圧順</option><option value="lifetime">長寿順</option></select><button id="export">記録を書き出す</button><button id="import">記録を読み込む</button><input type="file" id="file" accept="application/json" hidden></div><div class="controls" style="margin:10px 0"><input id="archiveSearch" type="search" placeholder="個体IDを検索（例：2031-011）" style="flex:1;min-width:160px"><select id="archiveYear"><option value="all">全年</option></select><select id="archiveType"><option value="all">全個体</option><option value="ty">台風到達</option><option value="td">未到達</option></select></div><div id="archiveList"></div></div></div><div id="years" class="hidden"><div class="pad"><h2>📅 年鑑</h2><div class="detail">発生数は台風未到達の熱帯擾乱も含みます。月別最低気圧は、その月に観測された全個体の記録から集計します。</div><div class="annual-action"><button id="annualCompareOpen" type="button" class="primary">🗺️ 年間進路図・2年比較を開く</button></div><div id="yearList"></div></div></div><div id="about" class="hidden"><div class="pad"><h2>試作版について</h2><p>v0.3.17では気象場の観測表示・移動成分の内訳・年間の環境集計を追加しました。気象と進路の式はv0.3.16と同じです。高気圧等の記号はモデル上の中心で、海面気圧や等圧線ではありません。旧観測点の環境は現行式による参考再計算として区別します。新しい観測点には気象モデル版と移動入力を保存します。</p><p>現実の地球の地図上で動く、架空の気象シミュレーションです。発生年ごとに個体番号を採番し、月別年鑑と地理的な観測日誌を備えています。月ごとの発生頻度・発生位置を滑らかに変化させ、年ごとの活動度にも差をつけています（発生数は熱帯擾乱の目安であり、台風数ではありません）。6時間刻みの季節性、緯度、環境シア、海面水温・湿度・海洋熱・鉛直シアの近似値を用います。発達上限は環境によって変化し、20日での強制終了は行わず、弱い循環の持続時間と海面水温・シア・湿度・陸地による環境悪化を蓄積して追跡終了を判定します。海陸はGSHHS海岸線データに基づいて中心位置と周囲約150kmの陸地割合を判定します（簡略化された海岸線であり、湖・小島などには誤差があります）。陸上の熱帯低気圧は基本的に衰弱する簡易モデルです。<strong>現実の予報や物理数値予報モデルではありません。v0.3.8では高気圧の張り出しと移動、貿易風・モンスーン、偏西風の蛇行、移動する気圧の谷を組み合わせた共通の環境風へ更新しました。特定地域への上陸や転向地点を指定する処理はありません。v0.3.16では高気圧の傾き・別の高気圧域・モンスーンの渦・気圧の谷の変動を共通の環境場へ加えました。温帯化は暖気核・熱的非対称性・前線帯の持続的な影響を表す近似指標で判定し、北東進そのものは判定条件にしません。実際の台風統計への適合は未検証です。</strong></p><p>同じ個体が熱帯低気圧→台風→熱帯低気圧→台風へ変わることがあります。温帯低気圧へ移行後も環境からのエネルギー供給と循環が続く間は追跡し、低気圧としての追跡終了まで残します。</p><p>強風域は東西南北で別の半径を持ち、進路上の色は最大風速の階級で変わり、温帯低気圧は灰青色、温帯化は◇、追跡終了は×で表示します。年間進路図の熱帯段階は従来どおり個体別の色です。地図の風域は概略の表示です。</p><p>記録はブラウザ内に保存されます。ブラウザのデータ消去で失われるため、定期的にJSONでバックアップしてください。実在台風との比較は次期開発項目です。過去の観測記録は新しい海陸判定や季節性で書き換えません。v0.3.15では発生場所と気象環境の整合、熱帯の季節変動、海洋冷却の重複抑制の解消、実際の陸上滞在時間による衰弱、循環の深さに応じた移動と、温帯化後の気圧の谷からのエネルギー供給を改善しました。寿命上限は設けていません。過去の記録は保持し、追跡中の個体の次のステップから新モデルを適用します。表示する海面水温は背景値で、冷却分は強度計算内で差し引きます。</p><button id="wipe" class="warning">全データを初期化</button></div></div></main><aside class="panel" id="detailPanel"><div class="pad"><div class="controls" style="margin-bottom:12px"><button id="detailBack" type="button">← 一覧に戻る</button></div><div class="controls" style="justify-content:space-between;align-items:center"><h2 style="margin:0">🔭 個体詳細</h2><span id="status" class="tag">選択なし</span></div><h2 id="stormName" style="font-size:20px;margin-top:10px">地図または一覧から選択</h2><div class="stats"><div class="stat"><small>中心気圧</small><strong id="p">—</strong><small>hPa</small></div><div class="stat"><small>最大風速</small><strong id="wind">—</strong><small>m/s</small></div><div class="stat"><small>経過時間</small><strong id="age">—</strong><small>時間</small></div></div><div class="detail" id="position" style="margin-top:10px"></div></div><div id="detailBody"><div class="section"><div class="controls" style="align-items:center;justify-content:space-between"><h2 style="margin:0">🗺️ 生涯進路図</h2><button id="expandLifetime" type="button">⛶ 全画面で見る</button></div><div class="detail" style="margin-bottom:8px">発生から追跡終了まで。進路上の点をタップすると、その時刻の観測記録へ移動します。</div><div class="field-controls"><label for="fieldLife">選択日時の気象場</label><select id="fieldLife" aria-label="個体図の気象場"></select><div id="fieldLifeInfo" class="detail" aria-live="polite"></div></div><div id="lifetimeMapHome"><div id="lifetimeMap"><div id="lifetimeTiles"></div><svg id="lifetimeTrack"></svg></div></div><div id="lifetimeLegend"></div><div id="typhoonPeriods" class="ty-periods"></div><div id="lifetimeInfo" class="detail" style="margin-top:8px"></div><details id="fieldBudgetBox" class="field-budget"><summary>この6時間の移動の内訳を調べる</summary><div id="fieldBudget"></div></details></div><div class="section"><h2>中心気圧の推移</h2><canvas id="chart" width="700" height="240"></canvas></div><div class="section"><h2>強風域・暴風域</h2><canvas id="windCanvas" width="700" height="320"></canvas><div id="radii" class="detail"></div></div><div class="section" id="replaySection"><h2>生涯再生</h2><input id="replay" class="slider" type="range" min="0" max="0" value="0"><div class="controls"><button id="back">◀ 6時間</button><button id="forward">6時間 ▶</button><button id="latest">最新へ</button></div><div class="detail" id="replayLabel"></div></div><div class="section"><h2>観測日誌</h2><div id="events"></div></div></div></aside></div><footer>試作ベータ版。台風の数値・発生頻度・進路は簡易モデルです。改修前後比較済み・実観測との統計較正は未実施です。背景地図は OpenStreetMap contributors / CARTO の画像を使用（ネット接続が必要）。</footer><div id="lifetimeOverlay" class="hidden" role="dialog" aria-modal="true" aria-label="生涯進路図の拡大表示"><div class="fullscreen-head"><strong id="fullscreenTitle">🗺️ 生涯進路図</strong><div class="controls"><button id="lifetimePlus" type="button">＋</button><button id="lifetimeMinus" type="button">－</button><button id="lifetimeReset" type="button">全体表示</button><button id="closeLifetime" type="button">✕ 閉じる</button></div></div><div class="field-controls field-full"><label for="fieldFull">気象場</label><select id="fieldFull" aria-label="全画面の気象場"></select><div id="fieldFullInfo" class="detail"></div></div><div id="fullscreenMapSlot"></div><div id="fullscreenInfo" class="detail"></div><div class="detail" style="padding:4px 12px 10px">ドラッグで移動・ピンチで拡大縮小。観測点をタップすると詳細の時刻も切り替わります。</div></div><div id="annualOverlay" class="hidden" role="dialog" aria-modal="true" aria-label="年間進路図の比較"><div class="annual-top"><strong>🗺️ 年間進路図・2年比較</strong><div class="controls"><button id="annualZoomIn" type="button">＋</button><button id="annualZoomOut" type="button">－</button><button id="annualReset" type="button">全体表示</button><button id="annualClose" type="button">✕ 閉じる</button></div></div><p class="detail">任意の2年を比較。地図の移動・ピンチ拡大は両側に連動します。進路をタップすると個体を選べます。発生年ごとに生涯全進路を表示。</p><div class="annual-compare"><section class="annual-pane"><div class="annual-options"><select id="annualYearA" aria-label="比較Aの年"></select><select id="annualFilterA" aria-label="比較Aの対象"><option value="all">全個体</option><option value="ty">台風到達のみ</option><option value="td">未到達のみ</option></select></div><div id="annualCountA" class="annual-count"></div><div class="annual-map" id="annualMapA"><div class="annual-tiles" id="annualTilesA"></div><svg class="annual-svg" id="annualSvgA"></svg></div><div id="annualPickA" class="annual-pick">進路をタップすると個体番号を表示</div></section><section class="annual-pane"><div class="annual-options"><select id="annualYearB" aria-label="比較Bの年"></select><select id="annualFilterB" aria-label="比較Bの対象"><option value="all">全個体</option><option value="ty">台風到達のみ</option><option value="td">未到達のみ</option></select></div><div id="annualCountB" class="annual-count"></div><div class="annual-map" id="annualMapB"><div class="annual-tiles" id="annualTilesB"></div><svg class="annual-svg" id="annualSvgB"></svg></div><div id="annualPickB" class="annual-pick">進路をタップすると個体番号を表示</div></section></div><p class="detail">進路色は個体ごとに区別しています（勢力階級色ではありません）。選択した個体を強調表示できます。背景地図 © OpenStreetMap contributors</p></div><script>
 (()=>{'use strict';const KEY='typhoon-archive-v01',R=Math.random,rad=Math.PI/180;let state,selected=null,replay=null,detailOpen=false,returnTab='archive',returnScroll=0,map={lat:23,lon:133,zoom:4},tileStyle=0,tileOK=0,tileFail=0,loadedTiles=new Map(),pointerStart=null,dragged=false,activePointers=new Map(),pinchStart=null;const el=id=>document.getElementById(id),clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),rng=(a,b)=>a+R()*(b-a),fmt=t=>new Date(t).toLocaleString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',timeZone:'UTC'}),month=t=>new Date(t).getUTCMonth()+1,year=t=>new Date(t).getUTCFullYear(),color=w=>w>=54?'#e86fc5':w>=44?'#b37aff':w>=33?'#f78d60':w>=17?'#f0c760':'#65c9e6',rank=w=>w>=54?'猛烈な台風':w>=44?'非常に強い台風':w>=33?'強い台風':w>=17?'台風':'熱帯低気圧';
 function init(){
  try{state=JSON.parse(localStorage.getItem(KEY))}catch(e){}
@@ -62,7 +64,7 @@ function init(){
  state.storms.forEach(s=>{s.events=s.events||[];s.track=s.track||[]});
  if(normalizeYearIds())save();
  bindMap();bind();
- if(!state.storms.length){let first=spawn();selected=first.id;save()}
+ if(!state.storms.length){let first=spawn();selected=first?.id||null;save()}
  else selected=state.storms.find(s=>!s.done)?.id||state.storms[state.storms.length-1]?.id||null;
  render();
  window.addEventListener('resize',()=>{if(!el('annualOverlay').classList.contains('hidden'))renderAnnualMaps();renderMap();const s=getSelected();if(s)renderLifetime(s,clamp(replay??s.track.length-1,0,s.track.length-1))});
@@ -166,13 +168,12 @@ function seasonalValue(arr,t){let d=new Date(t),m=d.getUTCMonth(),days=new Date(
 // intensity and steering use these same slowly evolving environmental signals.
 // Time is UTC, and no storm count, track or outcome is preselected.
 function basinRegime(t){
- const d=new Date(t),y=d.getUTCFullYear(),day=(t-Date.UTC(y,0,1))/86400000;
+ // Absolute phases keep the environmental regime continuous across New Year.
+ const day=(t-Date.UTC(2000,0,1))/86400000,y=2000+day/365.2425;
  const season=Math.cos(2*Math.PI*(day-225)/365.2425);
- // Low-frequency year-to-year state plus 30-60 day intraseasonal variability.
  const slow=Math.sin(y*1.713+.48)+.55*Math.sin(y*.613+2.1);
- const oscillation=Math.sin(day*2*Math.PI/(43+5*Math.sin(y*.71))+y*.93)
-    +.35*Math.sin(day*2*Math.PI/76+y*1.47);
- const ridge=clamp(.50+.18*slow+.20*Math.sin(day/27.5+y*.31),.08,.94);
+ const oscillation=Math.sin(day*2*Math.PI/45+.93)+.35*Math.sin(day*2*Math.PI/76+1.47);
+ const ridge=clamp(.50+.18*slow+.20*Math.sin(day/27.5+.31),.08,.94);
  const monsoon=clamp(.46+.15*slow+.24*oscillation+.12*season,.04,1);
  const ventilation=clamp(.52-.16*slow-.16*oscillation-.12*season,.08,.96);
  return {season,ridge,monsoon,ventilation,slow,oscillation};
@@ -183,34 +184,128 @@ function seasonalProfile(t){
  const regime=basinRegime(t);
  // Expected monthly genesis is environmentally modulated, not forced to a quota.
  const favorable=clamp(.36+.92*regime.monsoon-.45*regime.ventilation+.12*(1-regime.ridge),.14,1.35);
- const monthly=seasonalValue(SEASON_MONTHLY,t)*favorable*1.48;
+ const monthly=seasonalValue(SEASON_MONTHLY,t)*favorable*1.90;
  return {monthly,stepChance:clamp(monthly/(days*4),0,.18),lat:seasonalValue(SEASON_LAT,t),lon:seasonalValue(SEASON_LON,t),annual:favorable};
 }
 // Smooth, repeatable environmental fields. This is a fictional statistical model,
 // not real-time weather or an operational forecast.
 function fieldWave(lat,lon,t,scale=1){const day=t/86400000;return Math.sin(lon*.083+day*.028)*Math.cos(lat*.14-day*.017)*scale+Math.sin(lon*.047-lat*.11+day*.012)*scale*.55}
+// v0.3.16: travelling synoptic ventilation and ridge erosion (days, degrees).
+// Coefficients are phenomenological, not fitted to a best-track dataset.
+function synopticWeather(lat,lon,t){
+ const d=t/86400000;
+ const wave=(lon-140)*.14-d*2*Math.PI/10.5;
+ const pulse=.5+.5*Math.sin((lon-135)*.085+d*2*Math.PI/17);
+ const intrusion=clamp((Math.sin(wave)+.25)/1.25,0,1)*(.45+.55*pulse);
+ const reach=.45+.55/(1+Math.exp(-(lat-25)/4));
+ return {intrusion:intrusion*reach,wave};
+}
+// v0.3.16 shared circulation geometry. Smooth absolute-time signals are shared
+// by every storm; no storm-specific heading noise, destination or track quota.
+function circulationGeometry(t){
+ const d=(t-Date.UTC(2000,0,1))/86400000,r=basinRegime(t);
+ const packet=Math.sin(d*2*Math.PI/29.7+.8*Math.sin(d*2*Math.PI/83.1));
+ const blocking=clamp((Math.sin(d*2*Math.PI/46.3+.6*r.slow)-.15)/.85,0,1);
+ return {packet,blocking,
+  ridgeShift:5*Math.sin(d*2*Math.PI/57.7)+3*r.slow,
+  tilt:.38*Math.sin(d*2*Math.PI/36.7)+.22*r.slow,
+  gyreLon:137+13*Math.sin(d*2*Math.PI/67.3)+4*r.slow,
+  gyreLat:13+3*r.season+2*Math.sin(d*2*Math.PI/31.3),
+  gyreStrength:clamp(r.monsoon-.38,0,.65)*(12+10*Math.sin(d*2*Math.PI/24.7)**2),
+  blockLon:142+17*Math.sin(d*2*Math.PI/71.9),
+  blockLat:35+5*Math.sin(d*2*Math.PI/39.1),
+  frontBase:33+5*r.season+3*Math.sin(d*2*Math.PI/32.7),
+  frontPhase:d*2*Math.PI/12.9+.8*Math.sin(d*2*Math.PI/41.3)};
+}
+// Idealized atmospheric temperature boundary, distinct from SST. Its slope
+// and strength represent a frontal zone, not a diagnosed 3-D weather analysis.
+function frontalEnvironment(lat,lon,t){
+ const g=circulationGeometry(t),r=basinRegime(t);
+ const phase=(lon-140)*.13-g.frontPhase;
+ const frontLat=g.frontBase+4*Math.sin(phase)+2*g.blocking;
+ const width=3.3+1.1*(.5+.5*g.packet);
+ const z=(lat-frontLat)/width;
+ const strength=5.5+2.5*(1-r.season)/2;
+ const front=1-Math.tanh(z)**2;
+ const slope=.52*Math.cos(phase);
+ // magnitude of horizontal temperature gradient, K per 100 km
+ const gradient=strength/width*front*Math.sqrt(1+(slope/Math.max(.4,Math.cos(lat*rad)))**2)/1.112;
+ const lift=.5+.5*Math.cos(phase+.8);
+ return {gradient,front:clamp(front,0,1),lift,frontLat,
+  airTemperature:26-.16*(lat-15)-strength*(1+Math.tanh(z))};
+}
+function updateThermalStructure(s,e,effective,env,landExposure){
+ const f=frontalEnvironment(s.lat,s.lon,state.clock);
+ // Dimensionless structural proxies, NOT the observed Hart cyclone phase space.
+ if(!Number.isFinite(s.warmCore))s.warmCore=clamp(.55+s.wind/100,.6,1);
+ if(!Number.isFinite(s.thermalAsymmetry))s.thermalAsymmetry=0;
+ const convection=clamp((effective.sst-24.5)/4,0,1)*clamp((e.humidity-42)/35,0,1)
+  *clamp(s.organization??.6,0,1)*(1-.8*landExposure);
+ const ventilation=clamp((e.shear-12)/24,0,1.4);
+ const frontal=clamp(f.gradient/1.4,0,1.5);
+ const asymmetricTarget=clamp(frontal*(.45+.45*ventilation)+.12*ventilation,0,1);
+ s.thermalAsymmetry+=(asymmetricTarget-s.thermalAsymmetry)*(1-Math.exp(-6/18));
+ const coreTarget=clamp(.28+.95*convection-.46*frontal*(.4+.6*ventilation)
+  -.18*ventilation-.12*clamp((25-effective.sst)/4,0,1),0,1);
+ s.warmCore+=(coreTarget-s.warmCore)*(1-Math.exp(-6/(coreTarget<s.warmCore?30:36)));
+ const structural=s.thermalAsymmetry>.38&&s.warmCore<.55&&f.gradient>.55;
+ s.etExposureHours=Math.max(0,(s.etExposureHours||0)+(structural?6:-6));
+ s.etDiagnostic={t:state.clock,gradient:+f.gradient.toFixed(3),frontLatitude:+f.frontLat.toFixed(2),
+  warmCore:+s.warmCore.toFixed(3),asymmetry:+s.thermalAsymmetry.toFixed(3),
+  shear:+e.shear.toFixed(2),sst:+e.sst.toFixed(2),exposureHours:s.etExposureHours};
+ return s.wasTyphoon&&s.wind>=7&&s.etExposureHours>=12;
+}
+
 function environment(s,t){
- const d=new Date(t),day=(t-Date.UTC(d.getUTCFullYear(),0,1))/86400000;
  const regime=basinRegime(t),summer=regime.season,lat=s.lat,lon=s.lon;
- const sst=clamp(27.3+2.6*summer-.27*Math.max(0,lat-16)+.65*Math.sin((lon-130)*.055)+fieldWave(lat,lon,t,.4),18,31.6);
- const shear=clamp(12+9*regime.ventilation-4.2*summer+Math.max(0,lat-22)*.85+fieldWave(lat+12,lon-18,t,4.5),3,42);
- const humidity=clamp(61+10*regime.monsoon+7*summer-1.3*Math.max(0,lat-22)+fieldWave(lat-9,lon+20,t,9),35,91);
- const oceanHeat=clamp(49+7*(1-regime.ventilation)+14*summer-1.5*Math.max(0,lat-17)+fieldWave(lat+6,lon,t,10),10,90);
+ // Tropical warm pool has a small annual temperature range; the winter
+ // meridional gradient strengthens poleward, not uniformly across the tropics.
+ const winter=(1-summer)/2;
+ const warmCurrent=1.7*(.35+.65*(summer+1)/2)*Math.exp(-(((lat-31)/6)**2+((lon-(130+(lat-25)*2))/10)**2));
+ const sst=clamp(warmCurrent+28.5+.75*summer-.08*Math.max(0,lat-12)
+  -.025*Math.max(0,lat-25)**2-winter*.42*Math.max(0,lat-15)
+  +.5*Math.sin((lon-130)*.055)+fieldWave(lat,lon,t,.30),12,31.2);
+ const weather=synopticWeather(lat,lon,t);
+ const front=frontalEnvironment(lat,lon,t);
+ const shear=clamp(9+18*weather.intrusion+7*regime.ventilation-2.5*summer
+  +Math.max(0,lat-28)*.5+3*front.gradient+fieldWave(lat+12,lon-18,t,4),3,45);
+ const humidity=clamp(68-22*weather.intrusion+8*regime.monsoon+3*summer
+  -.75*Math.max(0,lat-22)+fieldWave(lat-9,lon+20,t,7),32,91);
+ const oceanDay=t/86400000;
+ // A spatially coherent deep warm-pool reservoir buffers mixing. Its position
+ // changes slowly; it is shared by all storms, not a per-storm intensity bonus.
+ const reservoir=35*Math.exp(-(((lat-15)/7)**2+((lon-148-8*Math.sin(oceanDay/30))/15)**2));
+ const oceanHeat=clamp(65+8*summer-1.7*Math.max(0,lat-17)+fieldWave(lat+6,lon,t,10)+reservoir,10,130);
  const land=isLand(lat,lon),landFraction=landCoverage(lat,lon);
- return {sst,shear,humidity,oceanHeat,land,landFraction};
+ return {sst,shear,humidity,oceanHeat,land,landFraction,intrusion:weather.intrusion};
 }
 function intensityEnvironment(s,e){
- const heat=clamp((e.sst-25.5)/4.2,0,1.4);
- const deep=clamp((e.oceanHeat-25)/50,0,1.2);
- const ventilation=clamp((e.shear-7)/24,0,1.6);
- const moisture=clamp((e.humidity-48)/36,0,1.2);
- // Existing storms can approach the equator, but a coherent tropical vortex
- // becomes progressively harder to maintain as planetary vorticity vanishes.
- const latitudeSupport=clamp((Math.abs(s.lat)-1.5)/8.5,0,1);
- const landPenalty=e.landFraction*.65+(e.land?.35:0);
- // Potential intensity is environmental, not a random per-storm pressure cap.
- const potential=clamp(1000-125*heat*deep*moisture*(1-.68*ventilation)*latitudeSupport+42*landPenalty,885,1010);
- return {potential,quality:heat*deep*moisture*(1-.68*ventilation)*latitudeSupport-landPenalty};
+ // OHC controls the cooling response below, not a second independent multiplier
+ // on the energy supply after SST has already been cooled.
+ const outflowCooling=clamp((s.lat-18)/15,0,1.3)*clamp((29-e.sst)/4,0,1)*2;
+ const heat=clamp((e.sst-25.5+outflowCooling)/3.5,0,1.35);
+ const moisture=clamp((e.humidity-45)/35,0,1.2);
+ const ventilation=clamp((e.shear-8)/24,0,1.6);
+ const latitudeSupport=clamp((Math.abs(s.lat)-1.5)/7.5,0,1);
+ const support=heat*moisture*latitudeSupport;
+ const loss=.10+ventilation*(.16+.48*(1-Math.min(1,moisture)));
+ const quality=support*(1-.48*ventilation)-loss;
+ const potential=clamp(1010-115*Math.max(0,quality),885,1010);
+ return {potential,quality};
+}
+// Spatial, per-storm ocean wake, reconstructed from saved observations.
+
+function oceanCooling(s,e,t){
+ let cooling=0;
+ for(let i=Math.max(0,s.track.length-80);i<s.track.length;i++){
+  const h=s.track[i];if(h.land||h.wind<10)continue;
+  const age=(t-h.t)/86400000;if(age<0)continue;
+  const distance=geoDistance(s.lat,s.lon,h.lat,h.lon);
+  if(distance>450)continue;
+  cooling+=.35*(h.wind/30)**2*clamp(65/e.oceanHeat,.45,2.5)
+   *Math.exp(-age/6-(distance/125)**2);
+ }
+ return Math.min(6,cooling);
 }
 function normalizeYearIds(){
  // Migrate legacy globally numbered IDs to annual numbering without changing tracks.
@@ -235,15 +330,32 @@ function genesisPosition(t){
  if(u<weights[0]){lat=9+warm*3+rng(-3.8,4.5);lon=132+warm*3+rng(-13,15)}
  else if(u<weights[0]+weights[1]){lat=10+warm*5+rng(-4,5);lon=149+warm*3+rng(-12,13)}
  else{lat=12+warm*8+rng(-3.5,4.5);lon=135+warm*8+rng(-12,16)}
- lat=clamp(lat+(regime.monsoon-.5)*4,5,27);lon=clamp(lon+(regime.ridge-.5)*9,113,176);
+ const g=circulationGeometry(t);
+ lat=clamp(lat+(regime.monsoon-.5)*4+.25*(g.gyreLat-15),5,27);
+ lon=clamp(lon+(regime.ridge-.5)*9+.25*(g.gyreLon-137),113,176);
  return {lat,lon};
 }
-function spawn(){let pos=genesisPosition(state.clock),lat=pos.lat,lon=pos.lon;
- // Prefer water; do not silently create systems inside large landmasses.
- for(let i=0;i<12&&isLand(lat,lon);i++){pos=genesisPosition(state.clock);lat=pos.lat;lon=pos.lon}
- if(isLand(lat,lon))return null;
+function genesisSuitability(pos,t){
+ const e=environment(pos,t);
+ if(e.land)return 0;
+ const heat=clamp((e.sst-25)/3,0,1);
+ const wet=clamp((e.humidity-48)/24,0,1);
+ const calm=clamp((32-e.shear)/20,0,1);
+ const spin=clamp((Math.abs(pos.lat)-3)/6,0,1);
+ return heat*wet*calm*spin*(1-.6*e.landFraction);
+}
+function spawn(){
+ let pos=null;
+ // The attempted disturbance samples the monsoon trough, then local convection.
+ // No candidate produces a storm when the available environments are hostile.
+ for(let i=0;i<4;i++){
+  const candidate=genesisPosition(state.clock);
+  if(R()<genesisSuitability(candidate,state.clock)){pos=candidate;break}
+ }
+ if(!pos)return null;
+ const lat=pos.lat,lon=pos.lon;
  let id=nextYearId(state.clock);let s={id,born:state.clock,lat,lon,p:1007,wind:10,phase:'disturbance',wasTyphoon:false,typhoonEpisodes:0,transitionSteps:0,done:false,peak:1007,peakWind:10,weakHours:0,hostileHours:0,track:[],events:[{t:state.clock,text:'熱帯擾乱を観測。追跡開始。'}]};record(s,environment(s,state.clock));state.storms.push(s);return s}
-function record(s,e){s.track.push({t:state.clock,lat:+s.lat.toFixed(3),lon:+s.lon.toFixed(3),p:s.p,wind:s.wind,phase:s.phase,sst:+e.sst.toFixed(1),shear:+e.shear.toFixed(1),land:e.land,landFraction:e.landFraction??0,radii:windRadii(s)})}
+function record(s,e){markFieldTime(state.clock);const si=flowInputs.get(s);s.track.push({fm:FIELD_MODEL_ID,...(si?{si:packSteeringInputs(si)}:{}),t:state.clock,lat:+s.lat.toFixed(3),lon:+s.lon.toFixed(3),p:s.p,wind:s.wind,phase:s.phase,sst:+e.sst.toFixed(1),shear:+e.shear.toFixed(1),land:e.land,landFraction:e.landFraction??0,radii:windRadii(s)});flowInputs.delete(s)}
 function windRadii(s){if(s.wind<15)return {g:[0,0,0,0],b:[0,0,0,0]};let base=clamp(90+(1010-s.p)*3.0,55,800),a=Math.sin(s.lat*.3+s.lon*.1),b=Math.cos(s.lat*.2-s.lon*.1),g=[base*(1+.28*a),base*(1-.28*a),base*(1+.2*b),base*(1-.2*b)].map(x=>Math.round(clamp(x,20,1100)));let factor=s.wind>=25?clamp((s.wind-22)/40,.12,.65):0;return{g,b:g.map(x=>Math.round(x*factor))}}
 function event(s,text){s.events.push({t:state.clock,text})}
 // Approximate geographic event detection from the coastline mask and regional anchors.
@@ -303,28 +415,30 @@ function displayJournal(s,h){
 // No target track, turn latitude, Japan attraction, or outcome quotas.
 // A deformable subtropical ridge, its western extension, planetary waves,
 // migrating midlatitude troughs, and a variable monsoon flow are combined.
-function steeringComponents(lat,lon,t){
+function steeringComponents(lat,lon,t,details=false){
  const day=t/86400000;
  const yearDay=(t-Date.UTC(new Date(t).getUTCFullYear(),0,1))/86400000;
- const season=Math.cos(2*Math.PI*(yearDay-220)/365.2425);
+ const season=basinRegime(t).season;
  const radLat=lat*rad;
  // Multiple incommensurate timescales prevent a permanently fixed ridge.
  const regime=basinRegime(t);
  const intraseason=Math.sin(day/16.7+.8)+.48*Math.sin(day/37.9-1.3);
  const ridgeLat=27.5+4.2*season+3.8*(regime.ridge-.5)+2.6*Math.sin(day/27.3)+1.1*Math.sin(day/11.8);
- const ridgeLon=151-13*(regime.ridge-.5)+12*Math.sin(day/39.7+.6)+7*Math.sin(day/73.1-1.2);
+ const geometry=circulationGeometry(t);
+ const ridgeLon=155+geometry.ridgeShift-22*(regime.ridge-.5)+12*Math.sin(day/39.7+.6)+7*Math.sin(day/73.1-1.2);
  const westReach=clamp(1+.30*Math.sin(day/18.9+.5)+.20*Math.sin(day/49.1),.53,1.47);
  const ridgeScaleX=1900+900*westReach;
  const ridgeScaleY=1150+180*Math.sin(day/31.7);
  const dx=(lon-ridgeLon)*111*Math.cos(radLat);
  const dy=(lat-ridgeLat)*111;
- const rx=dx/ridgeScaleX,ry=dy/ridgeScaleY;
+ const rx=dx/ridgeScaleX,ry=dy/ridgeScaleY-geometry.tilt*rx;
  const shape=Math.exp(-.80*(rx*rx+ry*ry));
- const ridgeStrength=clamp(13+13*regime.ridge+4.2*season+3.0*intraseason,7,33);
+ const erosion=synopticWeather(lat,lon,t).intrusion;
+ const ridgeStrength=clamp(12+12*regime.ridge+3.2*season+3.0*intraseason,7,31)*(1-.45*erosion);
  // Northern-hemisphere anticyclonic circulation: west on south flank,
  // north on west flank, east on north flank, south on east flank.
  const ridgeEast=ridgeStrength*shape*ry*1.55;
- const ridgeNorth=-ridgeStrength*shape*rx*1.38;
+ const ridgeNorth=-ridgeStrength*shape*(rx-geometry.tilt*ry)*1.38;
  // Trade easterlies weaken near the monsoon trough, and their northern
  // boundary migrates with the ridge instead of remaining at 29N.
  const tradesEdge=clamp(ridgeLat-7+2.4*Math.sin(day/23.7),18,31);
@@ -332,35 +446,40 @@ function steeringComponents(lat,lon,t){
  const monsoonActive=clamp((season+.8)/1.8,0,1)*(.35+1.1*regime.monsoon);
  const monsoonEnvelope=Math.exp(-(((lat-(13+2*Math.sin(day/29.3)))/8)**2))
    *Math.exp(-(((lon-127)/34)**2))*monsoonActive;
- const tradeEast=-clamp(6.2+3.6*regime.ridge+2.8*Math.sin(day/21.7+lon*.025),3.2,14)*trades*(1-.72*monsoonEnvelope);
+ const tradeEast=-clamp(4.8+3.2*regime.ridge+2.8*Math.sin(day/21.7+lon*.025),3.2,14)*trades*(1-.72*monsoonEnvelope);
  const tradeNorth=1.0*trades;
  // Broad monsoon westerly bursts: not an imposed storm heading.
- const monsoonEast=monsoonEnvelope*(4+5*regime.monsoon+7*Math.sin(day/9.7-lon*.031));
- const monsoonNorth=monsoonEnvelope*(3.8*Math.cos(day/12.3+lon*.044));
+ const monsoonEast=monsoonEnvelope*(2+3*regime.monsoon+7*Math.sin(day*2*Math.PI/9.7-lon*.031));
+ const monsoonNorth=monsoonEnvelope*(3.8*Math.cos(day*2*Math.PI/12.3+lon*.044));
  // Migrating Rossby-wave troughs: alternating poleward/equatorward
- // steering with a coherent spatial wavelength and 5-12 day changes.
- const wave1=(lon-130)*.068-day*.13;
- const wave2=(lon-148)*.045+day*.077;
- const troughLatitude=36+3.4*Math.sin(day/20.9)+2.1*Math.sin(day/43.7+1);
- const troughBand=Math.exp(-(((lat-troughLatitude)/12.5)**2));
+ // steering with a coherent spatial wavelength and 10-17 day changes.
+ const wave1=(lon-140)*.14-day*2*Math.PI/10.5;
+ const wave2=(lon-135)*.085+day*2*Math.PI/17;
+ const troughLatitude=33-3*geometry.packet+3.4*Math.sin(day/20.9)+2.1*Math.sin(day/43.7+1);
+ const troughBand=(.55+.45*(.5+.5*geometry.packet))*Math.exp(-(((lat-troughLatitude)/12.5)**2));
  const troughEast=troughBand*(5.0*Math.sin(wave1)+3.3*Math.cos(wave2));
  const troughNorth=troughBand*(8.2*Math.cos(wave1)+4.2*Math.sin(wave2));
  // Jet meanders with the trough; not a universal eastward conveyor
  // already active at 30N. A wide transition avoids abrupt turns.
- const jetLatitude=38+4.1*Math.sin(day/20.9)+2.3*Math.sin(day/43.7+1)
+ const jetLatitude=35+1.5*season+2*geometry.blocking-4*Math.max(0,geometry.packet)+4.1*Math.sin(day/20.9)+2.3*Math.sin(day/43.7+1)
    +2.4*Math.sin(wave1);
  const jet=1/(1+Math.exp(-(lat-jetLatitude)/4.0));
  const jetEast=(23+7*Math.sin(wave2))*jet;
  const jetNorth=(2.4*Math.cos(wave1)+2.2*Math.sin(wave2))*jet;
  // Small, spatially coherent low-latitude synoptic variations.
- const synEast=2.3*Math.sin(lon*.092-day*.105+lat*.048);
- const synNorth=2.8*Math.cos(lon*.081+day*.093-lat*.072);
- return {ridge:{east:ridgeEast,north:ridgeNorth},
+ const synEast=2.3*Math.sin(lon*.092-day*2*Math.PI/8.3+lat*.048);
+ const synNorth=2.8*Math.cos(lon*.081+day*2*Math.PI/11.1-lat*.072);
+ const gx=(lon-geometry.gyreLon)*Math.cos(radLat)/11,gy=(lat-geometry.gyreLat)/9;
+ const gyre=geometry.gyreStrength*Math.exp(-.5*(gx*gx+gy*gy));
+ const bx=(lon-geometry.blockLon)*Math.cos(radLat)/13,by=(lat-geometry.blockLat)/9;
+ const block=19*geometry.blocking*Math.exp(-.5*(bx*bx+by*by));
+ const parts={gyre:{east:-gyre*gy,north:gyre*gx},block:{east:block*by,north:-block*bx},ridge:{east:ridgeEast,north:ridgeNorth},
   trade:{east:tradeEast,north:tradeNorth},
   monsoon:{east:monsoonEast,north:monsoonNorth},
   trough:{east:troughEast,north:troughNorth},
   jet:{east:jetEast,north:jetNorth},
   synoptic:{east:synEast,north:synNorth}};
+ return details?{parts,ridgeLat,ridgeLon,ridgeScaleX,ridgeScaleY,ridgeStrength,tradesEdge,troughLatitude,jetLatitude}:parts;
 }
 function steeringFlow(lat,lon,t){
  const parts=steeringComponents(lat,lon,t);
@@ -369,46 +488,64 @@ function steeringFlow(lat,lon,t){
  return {east:clamp(east,-45,58),north:clamp(north,-30,40)};
 }
 function advanceSteering(s,t){
- const target=steeringFlow(s.lat,s.lon,t);
- // Inertia smooths direction changes; each storm responds to the same field.
- if(!Number.isFinite(s.motionEast)||!Number.isFinite(s.motionNorth)){
-   s.motionEast=target.east;s.motionNorth=target.north;
- }
- s.motionEast=.74*s.motionEast+.26*target.east;
- s.motionNorth=.74*s.motionNorth+.26*target.north;
- // Weak poleward drift from beta effect; stronger vortices tend to drift more.
- const beta=clamp((1010-s.p)/75,0,1.1);
- const east=s.motionEast-1.4*beta,north=s.motionNorth+2.3*beta;
- s.lat=clamp(s.lat+north*6/111.2,-5,75);
- s.lon+=east*6/(111.2*Math.max(.25,Math.cos(s.lat*rad)));
+ const inputs=[s.lat,s.lon,s.wind,Number.isFinite(s.motionEast)?s.motionEast:null,Number.isFinite(s.motionNorth)?s.motionNorth:null];
+ const budget=steeringBudget(...inputs,t);
+ s.motionEast=budget.motionEast;s.motionNorth=budget.motionNorth;
+ s.lat=clamp(s.lat+budget.north*6/111.2,-5,75);
+ s.lon+=budget.east*6/(111.2*Math.max(.25,Math.cos(s.lat*rad)));
+ flowInputs.set(s,inputs);
 }
-function evolve(s){if(s.done)return;let e=environment(s,state.clock),old=s.phase,age=(state.clock-s.born)/3600000;
+function evolve(s){if(s.done)return;let old=s.phase;
+ const startLat=s.lat,startLon=s.lon;
  advanceSteering(s,state.clock);
- e=environment(s,state.clock);let oldP=s.p,oldW=s.wind;
- if(s.phase==='extratropical'){s.transitionSteps++;s.p=clamp(Math.round(s.p+rng(-6,8)),945,1025);s.wind=clamp(Math.round(s.wind+rng(-4,3)),3,38);s.lat+=rng(.4,1.1);s.lon+=rng(.5,1.5);if(s.transitionSteps>=rng(8,20)||s.p>=1018||s.lat>65){s.done=true;s.phase='ended';event(s,'温帯低気圧としての追跡を終了（簡易モデルの終了判定）。')}}else{
- // Strong storms require a sustained favorable environment. The closer to
- // potential intensity, the slower further deepening becomes.
- const env=intensityEnvironment(s,e);
- const previous=s.track.length>1?s.track[s.track.length-1]:null;
- const moved=previous?Math.hypot((s.lat-previous.lat)*111,(s.lon-previous.lon)*111*Math.cos(s.lat*rad)):35;
- // Ocean-wake memory is per cyclone and decays as it moves away or as
- // the wake recovers.  This is a coarse proxy, not a gridded ocean model.
- // Older saved cyclones start with zero memory without changing old records.
- const slow=clamp((38-moved)/38,0,1);
- const mixing=clamp((1010-s.p)/110,0,1)*clamp((65-e.oceanHeat)/55+.45,.15,1.35);
- const previousWake=Number.isFinite(s.oceanWake)?s.oceanWake:0;
- const retention=Math.exp(-moved/135)*.94;
- s.oceanWake=clamp(previousWake*retention+slow*mixing*.12,0,1);
- const cooling=slow*mixing*.40+s.oceanWake*.85;
- const potential=clamp(env.potential+cooling*28,885,1014);
- const landStress=e.land?8+e.landFraction*12:e.landFraction*5;
- let tendency=(s.p-potential)*.105-landStress-(e.shear>24?(e.shear-24)*.24:0)-(e.humidity<57?(57-e.humidity)*.16:0);
- // Weak systems are vulnerable to unfavorable environments.
- if(e.sst<26)tendency-=(26-e.sst)*1.4;
- if(s.p<930)tendency-=1.2;
- tendency=clamp(tendency,-12,9);
- // Small variability, without the persistent random-walk bias of the old model.
- s.p=clamp(Math.round(s.p-tendency+rng(-2,2)),880,1018);
+ let e=environment(s,state.clock),oldP=s.p;
+ if(s.phase==='extratropical'){
+  s.transitionSteps=(s.transitionSteps||0)+1;
+  const frontal=frontalEnvironment(s.lat,s.lon,state.clock);
+  const baroclinicSupport=clamp(frontal.gradient/1.5,0,1.3)*(.2+.8*frontal.lift);
+  // A travelling trough can supply energy to a cold-core low. Between troughs
+  // the supply falls and the remnant decays; no post-transition age limit.
+  const targetP=1016-55*baroclinicSupport;
+  s.p=clamp(Math.round(s.p+(targetP-s.p)*.20),945,1025);
+  if(!Number.isFinite(s.extratropicalWind))s.extratropicalWind=s.wind;
+  s.extratropicalWind+=(3+30*baroclinicSupport-s.extratropicalWind)*.25;
+  s.wind=clamp(Math.round(s.extratropicalWind),3,45);
+  if((s.wind<7&&baroclinicSupport<.15)||s.lat>65||s.lon>190||s.lon<95){
+   s.done=true;s.phase='ended';event(s,'温帯低気圧としての追跡を終了（エネルギー供給の低下と循環の衰弱、または観測海域外）。');
+  }
+ }else{
+ const cooling=oceanCooling(s,e,state.clock);
+ s.oceanWake=cooling; // now degrees C; old value is never reused as the old proxy
+ const effective={...e,sst:e.sst-cooling};
+ const env=intensityEnvironment(s,effective);
+ // Structural recovery requires sustained convection; damaged remnants do
+ // not instantly regain full development efficiency when one step improves.
+ const targetOrg=clamp((env.quality+.05)/.45,0,1);
+ if(!Number.isFinite(s.organization))s.organization=clamp(.3+s.wind/60,.3,1);
+ // Midpoint samples estimate residence time; a single endpoint on land no
+ // longer means six full hours of continental exposure.
+ const distance=geoDistance(startLat,startLon,s.lat,s.lon);
+ const samples=Math.max(3,Math.min(24,Math.ceil(distance/20)));
+ let landed=0;
+ for(let j=0;j<samples;j++){
+  const f=(j+.5)/samples;
+  if(isLand(startLat+(s.lat-startLat)*f,startLon+(s.lon-startLon)*f))landed++;
+ }
+ const landExposure=landed/samples;
+ const convectiveOrg=targetOrg*(1-.8*landExposure);
+ s.organization+=(convectiveOrg-s.organization)*(convectiveOrg<s.organization?.24:.16);
+ const oceanPotential=1010-(1010-env.potential)*(.25+.75*s.organization);
+ const potential=1010-(1010-oceanPotential)*(1-landExposure);
+ // Frictional decay scales with pressure deficit and time over land; it is
+ // finite for a narrow island, and cumulative over a continent.
+ const landDecay=(1010-s.p)*(1-Math.exp(-6*landExposure/30));
+ const relaxation=potential>s.p?.17:.12;
+ let tendency=(s.p-potential)*relaxation-landDecay;
+ tendency=clamp(tendency,-20,9);
+ // Preserve sub-hPa tendencies: integer rounding used to pin weak circulation.
+ if(!Number.isFinite(s.pressureExact)||Math.abs(s.pressureExact-s.p)>.51)s.pressureExact=s.p;
+ s.pressureExact=clamp(s.pressureExact-tendency+rng(-1,1),880,1018);
+ s.p=Math.round(s.pressureExact);
  // Wind evolves continuously rather than jumping across the 17 m/s threshold.
  const targetWind=clamp((1010-s.p)*.65,3,77);
  s.wind=clamp(Math.round(s.wind*.66+targetWind*.34+rng(-.55,.55)),3,77);
@@ -416,16 +553,21 @@ function evolve(s){if(s.done)return;let e=environment(s,state.clock),old=s.phase
  // to the phase label on weakening, to avoid rapid 16/17 m/s classification chatter.
  if(s.wind>=17||(old==='typhoon'&&s.wind>=15)){s.phase='typhoon';if(old!=='typhoon'){s.typhoonEpisodes++;s.wasTyphoon=true;event(s,s.typhoonEpisodes===1?'熱帯低気圧から初めて台風に発達。':`再び台風に発達（${s.typhoonEpisodes}回目）。`)}}else if(s.wind>=7){s.phase='depression';if(old==='typhoon')event(s,'台風から熱帯低気圧に衰弱。追跡継続。')}else{s.phase='disturbance';if(old==='typhoon'||old==='depression')event(s,'熱帯擾乱まで衰弱。追跡継続。')}
  if(oldP-s.p>=14)event(s,'6時間で急速に中心気圧が低下。');if(s.p-oldP>=14)event(s,'6時間で急速に中心気圧が上昇。');
- if(s.lat>34&&s.wasTyphoon&&s.wind>=12&&R()<.20){s.phase='extratropical';event(s,'温帯低気圧へ移行。引き続き追跡。')}
+ // Recurvature is not a transition criterion: thermal structure has memory.
+ if(updateThermalStructure(s,e,effective,env,landExposure)){
+  s.phase='extratropical';
+  s.etTransition={t:state.clock,lat:s.lat,lon:s.lon,...s.etDiagnostic,reason:'暖気核の減衰・熱的非対称化・前線帯への持続的接触'};
+  event(s,`温帯低気圧へ移行：${s.etTransition.reason}（暖気核 ${s.etDiagnostic.warmCore}・非対称度 ${s.etDiagnostic.asymmetry}・温度傾度 ${s.etDiagnostic.gradient}K/100km）。引き続き追跡。`);
+ }
  else {
   // v0.3.12: No lifespan lottery or maximum-age cutoff.  A system ends
   // after sustained loss of its circulation, with the rate controlled by
   // local water temperature, shear, moisture and land interaction.
   // These counters are persisted per storm; older saved storms initialize
   // safely on their first new step, without rewriting their history.
-  const hostile=clamp((26-e.sst)*.9+(e.shear-22)*.12+(58-e.humidity)*.07+
-    e.landFraction*3.2+(e.land?2.2:0),0,8);
-  const favorable=e.sst>=27&&e.shear<20&&e.humidity>=62&&!e.land&&e.landFraction<.1;
+  const hostile=clamp(Math.max(0,26-effective.sst)*.9+Math.max(0,e.shear-22)*.12+Math.max(0,58-e.humidity)*.07+
+    landExposure*4,0,8);
+  const favorable=env.quality>.25&&!e.land&&e.landFraction<.1;
   s.hostileHours=clamp((s.hostileHours||0)+(hostile>.65?6*clamp(hostile/2,.5,2):favorable?-12:-3),0,240);
   // A weak remnant can persist briefly, but not drift for weeks at 3-6m/s.
   // Strong systems remain alive until they genuinely decay or transition.
@@ -437,7 +579,7 @@ function evolve(s){if(s.done)return;let e=environment(s,state.clock),old=s.phase
  }
  }
  appendGeographyEvents(s);s.peak=Math.min(s.peak,s.p);s.peakWind=Math.max(s.peakWind,s.wind);record(s,e)}
-function step(n=1){for(let i=0;i<n;i++){state.clock+=21600000;let active=state.storms.filter(s=>!s.done);active.forEach(evolve);let profile=seasonalProfile(state.clock);if(active.length<7&&R()<profile.stepChance)spawn()}save();render()}
+function step(n=1){for(let i=0;i<n;i++){state.clock+=21600000;markFieldTime(state.clock);let active=state.storms.filter(s=>!s.done);active.forEach(evolve);let profile=seasonalProfile(state.clock);if(active.length<7&&R()<profile.stepChance)spawn()}save();render()}
 function switchTab(tab){if(tab==='observe'){selected=null;replay=null}if(lifetimeFull)toggleLifetimeFull(false);document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));['observe','archive','years','about'].forEach(id=>el(id).classList.toggle('hidden',id!==tab));detailOpen=false;render();if(tab==='observe')setTimeout(renderMap,20)}
 function openStorm(id,index=null){const tab=document.querySelector('[data-tab].active')?.dataset.tab||'observe';if(!detailOpen){returnTab=tab;returnScroll=window.scrollY}selected=id;replay=index;detailOpen=true;render();window.scrollTo(0,0)}
 function closeStorm(){if(lifetimeFull)toggleLifetimeFull(false);detailOpen=false;if(returnTab==='observe'){selected=null;replay=null}switchTab(returnTab);requestAnimationFrame(()=>window.scrollTo(0,returnScroll))}
@@ -469,10 +611,10 @@ function typhoonActivity(s){const tr=s.track||[];let periods=[],start=-1;const i
  return periods}
 function fmtHours(h){return `${Math.floor(h/24)}日${h%24?`${h%24}時間`:''}`}
 function renderTyphoonPeriods(s){const tr=s.track,periods=typhoonActivity(s),sum=periods.reduce((n,p)=>n+p.hours,0),total=Math.max(1,tr.length);const root=el('typhoonPeriods');
- root.innerHTML=`<strong>🌀 台風活動履歴</strong><div class="detail">台風期間合計：${fmtHours(sum)} ｜ 台風到達：${periods.length}回 ｜ 生涯：${fmtHours(Math.max(0,(tr.length-1)*6))}</div><div class="ty-bar">${tr.map((t,i)=>`<div class="ty-part" data-ti="${i}" style="flex:1;background:${t.phase==='extratropical'||t.phase==='ended'?'#9aa8b8':t.phase==='typhoon'?'#56c776':'#65c9e6'}" title="${fmt(t.t)} UTC"></div>`).join('')}</div>${periods.length?periods.map((p,i)=>`<div class="ty-row"><strong>第${i+1}期 ${i?'（再発達）':''}</strong>：${fmtHours(p.hours)}<div class="detail">${fmt(tr[p.start].t)} UTC ～ ${fmt(tr[Math.min(p.end+1,tr.length-1)].t)} UTC ｜ 期間内最低 ${Math.min(...tr.slice(p.start,p.end+1).map(t=>t.p))}hPa</div></div>`).join(''):'<div class="detail">台風には到達しませんでした。</div>'}<div class="detail" style="margin-top:6px">6時間ごとの台風判定から集計（衰弱時は15～16m/sでも台風状態を維持）。境界時刻は観測刻みの近似です。</div>`;
+ root.innerHTML=`<strong>🌀 台風活動履歴</strong><div class="detail">台風期間合計：${fmtHours(sum)} ｜ 台風到達：${periods.length}回 ｜ 生涯：${fmtHours(Math.max(0,(tr.length-1)*6))}</div><div class="ty-bar">${tr.map((t,i)=>`<div class="ty-part" data-ti="${i}" style="flex:1;background:${t.phase==='ended'?'#ffffff':t.phase==='extratropical'?'#697b8f':t.phase==='typhoon'?'#56c776':'#65c9e6'}" title="${fmt(t.t)} UTC"></div>`).join('')}</div>${periods.length?periods.map((p,i)=>`<div class="ty-row"><strong>第${i+1}期 ${i?'（再発達）':''}</strong>：${fmtHours(p.hours)}<div class="detail">${fmt(tr[p.start].t)} UTC ～ ${fmt(tr[Math.min(p.end+1,tr.length-1)].t)} UTC ｜ 期間内最低 ${Math.min(...tr.slice(p.start,p.end+1).map(t=>t.p))}hPa</div></div>`).join(''):'<div class="detail">台風には到達しませんでした。</div>'}<div class="detail" style="margin-top:6px">6時間ごとの台風判定から集計（衰弱時は15～16m/sでも台風状態を維持）。境界時刻は観測刻みの近似です。</div>`;
  root.querySelectorAll('[data-ti]').forEach(b=>b.onclick=()=>{replay=+b.dataset.ti;renderDetails()});
 }
-function bind(){el('mapSwap').onclick=()=>{tileStyle=(tileStyle+1)%2;resetTiles()};el('mapReload').onclick=()=>resetTiles();document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{switchTab(b.dataset.tab);window.scrollTo(0,0)});el('detailBack').onclick=closeStorm;el('annualCompareOpen').onclick=openAnnualCompare;el('annualClose').onclick=closeAnnualCompare;el('annualZoomIn').onclick=()=>annualZoom(.5);el('annualZoomOut').onclick=()=>annualZoom(-.5);el('annualReset').onclick=()=>{annualView={lat:24,lon:143,z:2.2};renderAnnualMaps()};for(const side of ['A','B']){el('annualYear'+side).onchange=()=>{annualPicked[side]=null;renderAnnualMaps()};el('annualFilter'+side).onchange=()=>{annualPicked[side]=null;renderAnnualMaps()};setupAnnualGestures(side)}el('expandLifetime').onclick=()=>toggleLifetimeFull(true);el('closeLifetime').onclick=()=>toggleLifetimeFull(false);el('lifetimePlus').onclick=()=>lifetimeZoomBy(1);el('lifetimeMinus').onclick=()=>lifetimeZoomBy(-1);el('lifetimeReset').onclick=()=>{lifetimeZoom=lifetimePanX=lifetimePanY=0;const st=getSelected();if(st)renderLifetime(st,clamp(replay??st.track.length-1,0,st.track.length-1))};setupLifetimeGestures();el('archiveSearch').oninput=renderArchive;el('archiveYear').onchange=renderArchive;el('archiveType').onchange=renderArchive;el('step').onclick=()=>step(1);el('day').onclick=()=>step(4);el('month').onclick=()=>step(120);el('year').onclick=()=>step(1460);el('sort').onchange=render;el('replay').oninput=e=>{replay=+e.target.value;renderDetails()};el('back').onclick=()=>{replay=Math.max(0,(replay??(getSelected()?.track.length-1??0))-1);renderDetails()};el('forward').onclick=()=>{replay=Math.min((getSelected()?.track.length-1??0),(replay??0)+1);renderDetails()};el('latest').onclick=()=>{replay=null;renderDetails()};el('export').onclick=()=>{let blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='typhoon-archive-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};el('import').onclick=()=>el('file').click();el('file').onchange=async e=>{try{let obj=JSON.parse(await e.target.files[0].text());if(!Array.isArray(obj.storms)||!Number.isFinite(obj.clock))throw Error();if(confirm('現在の図鑑を読み込んだ記録で置き換えますか？')){state=obj;selected=null;replay=null;detailOpen=false;normalizeYearIds();save();render()}}catch(err){alert('読み込めるバックアップ形式ではありません。')}e.target.value=''};el('wipe').onclick=()=>{if(confirm('本当に全観測記録を削除しますか？')){localStorage.removeItem(KEY);state={clock:Date.UTC(2027,0,1),seq:0,storms:[],version:1};selected=null;replay=null;detailOpen=false;let first=spawn();selected=first.id;save();render()}}}
+function bind(){bindFieldControls();el('mapSwap').onclick=()=>{tileStyle=(tileStyle+1)%2;resetTiles()};el('mapReload').onclick=()=>resetTiles();document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{switchTab(b.dataset.tab);window.scrollTo(0,0)});el('detailBack').onclick=closeStorm;el('annualCompareOpen').onclick=openAnnualCompare;el('annualClose').onclick=closeAnnualCompare;el('annualZoomIn').onclick=()=>annualZoom(.5);el('annualZoomOut').onclick=()=>annualZoom(-.5);el('annualReset').onclick=()=>{annualView={lat:24,lon:143,z:2.2};renderAnnualMaps()};for(const side of ['A','B']){el('annualYear'+side).onchange=()=>{annualPicked[side]=null;renderAnnualMaps()};el('annualFilter'+side).onchange=()=>{annualPicked[side]=null;renderAnnualMaps()};setupAnnualGestures(side)}el('expandLifetime').onclick=()=>toggleLifetimeFull(true);el('closeLifetime').onclick=()=>toggleLifetimeFull(false);el('lifetimePlus').onclick=()=>lifetimeZoomBy(1);el('lifetimeMinus').onclick=()=>lifetimeZoomBy(-1);el('lifetimeReset').onclick=()=>{lifetimeZoom=lifetimePanX=lifetimePanY=0;const st=getSelected();if(st)renderLifetime(st,clamp(replay??st.track.length-1,0,st.track.length-1))};setupLifetimeGestures();el('archiveSearch').oninput=renderArchive;el('archiveYear').onchange=renderArchive;el('archiveType').onchange=renderArchive;el('step').onclick=()=>step(1);el('day').onclick=()=>step(4);el('month').onclick=()=>step(120);el('year').onclick=()=>step(1460);el('sort').onchange=render;el('replay').oninput=e=>{replay=+e.target.value;renderDetails()};el('back').onclick=()=>{replay=Math.max(0,(replay??(getSelected()?.track.length-1??0))-1);renderDetails()};el('forward').onclick=()=>{replay=Math.min((getSelected()?.track.length-1??0),(replay??0)+1);renderDetails()};el('latest').onclick=()=>{replay=null;renderDetails()};el('export').onclick=()=>{const backup=makeArchiveExport();let blob=new Blob([JSON.stringify(backup.data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=backup.filename;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};el('import').onclick=()=>el('file').click();el('file').onchange=async e=>{try{let obj=JSON.parse(await e.target.files[0].text());if(!Array.isArray(obj.storms)||!Number.isFinite(obj.clock))throw Error();if(confirm('現在の図鑑を読み込んだ記録で置き換えますか？')){state=obj;selected=null;replay=null;detailOpen=false;normalizeYearIds();save();render()}}catch(err){alert('読み込めるバックアップ形式ではありません。')}e.target.value=''};el('wipe').onclick=()=>{if(confirm('本当に全観測記録を削除しますか？')){localStorage.removeItem(KEY);state={clock:Date.UTC(2027,0,1),seq:0,storms:[],version:1};selected=null;replay=null;detailOpen=false;let first=spawn();selected=first?.id||null;save();render()}}}
 function updateTabLayout(){
  const tab=document.querySelector('[data-tab].active')?.dataset.tab||'observe';
  const showDetail=detailOpen;
@@ -495,7 +637,7 @@ function renderArchive(){
  if(!arr.length)el('archiveList').innerHTML='<p class="muted">該当する個体はありません。</p>';
  arr.forEach(s=>entry('archiveList',s));
 }
-function render(){el('date').textContent=fmt(state.clock)+' UTC';let sp=seasonalProfile(state.clock);el('season').textContent=`架空の ${year(state.clock)} 年シーズン ｜ ${month(state.clock)}月の発生傾向 ${sp.monthly.toFixed(1)}個体/月（目安） ｜ 年変動 ×${sp.annual.toFixed(2)}`;let active=state.storms.filter(s=>!s.done);el('activeCount').textContent=`追跡中 ${active.length} 個体 / 累計 ${state.storms.length}`;el('stormList').innerHTML=active.length?'':'<div class="muted">現在追跡中の個体なし。時間を進めると発生します。</div>';active.slice().reverse().forEach(s=>entry('stormList',s));renderArchive();renderYears();updateTabLayout();renderDetails();renderMap()}
+function render(){el('date').textContent=fmt(state.clock)+' UTC';let sp=seasonalProfile(state.clock);el('season').textContent=`架空の ${year(state.clock)} 年シーズン ｜ ${month(state.clock)}月の擾乱発生試行 ${sp.monthly.toFixed(1)}回/月（環境により不成立） ｜ 年変動 ×${sp.annual.toFixed(2)}`;let active=state.storms.filter(s=>!s.done);el('activeCount').textContent=`追跡中 ${active.length} 個体 / 累計 ${state.storms.length}`;el('stormList').innerHTML=active.length?'':'<div class="muted">現在追跡中の個体なし。時間を進めると発生します。</div>';active.slice().reverse().forEach(s=>entry('stormList',s));renderArchive();renderYears();updateTabLayout();renderDetails();renderMap()}
 function entry(target,s){let b=document.createElement('button');b.className='entry';let ty=s.wasTyphoon?`台風経験 ${s.typhoonEpisodes}回`:'台風未到達';b.innerHTML=`<span><strong>${s.id}</strong><br><small>${s.done?'追跡終了':s.phase==='extratropical'?'温帯低気圧':rank(s.wind)} ・ ${ty}</small></span><span style="text-align:right">${s.peak} hPa<br><small>${((s.track.length-1)*6/24).toFixed(1)}日</small></span>`;b.onclick=()=>select(s.id);el(target).appendChild(b)}
 let expandedAnnualYear=null;
 function renderYears(){
@@ -528,6 +670,7 @@ function renderYears(){
    let td=document.createElement('td');if(m.lowest){let btn=document.createElement('button');btn.className='annual-link';btn.textContent=`${m.lowest.h.p}hPa / ${m.lowest.s.id}`;btn.onclick=()=>openStorm(m.lowest.s.id,m.lowest.s.track.indexOf(m.lowest.h));td.appendChild(btn)}else td.textContent='—';tr.appendChild(td);tbody.appendChild(tr)
   }table.appendChild(tbody);scroll.appendChild(table);block.appendChild(scroll);
   const note=document.createElement('p');note.className='muted';note.textContent='発生数は発生月で集計。月間・年間最低気圧は、その月・年に観測された記録で集計（前年発生の個体も対象）。台風到達数は発生月別に、最終的に台風へ到達した個体を数えます。';block.appendChild(note);
+  appendFieldYear(block,y);
   container.appendChild(block);
  }
 }
@@ -549,7 +692,7 @@ function annualFrame(side){const box=el('annualMap'+side),w=box.clientWidth,h=bo
 function renderAnnualMaps(){if(el('annualOverlay').classList.contains('hidden'))return;for(const side of ['A','B'])renderAnnualSide(side)}
 function renderAnnualSide(side){
  const f=annualFrame(side),{w,h,left,top}=f,z=annualView.z,zi=Math.floor(z),scale=2**(z-zi),n=2**zi,layer=el('annualTiles'+side),svg=el('annualSvg'+side),storms=annualStorms(side);
- el('annualCount'+side).textContent=`${storms.length}個体 ｜ 台風到達 ${storms.filter(s=>s.wasTyphoon).length}個体`;
+ el('annualCount'+side).textContent=`${storms.length}個体 ｜ 台風到達 ${storms.filter(s=>s.wasTyphoon).length}個体 ｜ 灰青の破線：温帯低気圧 ◇：温帯化 ×：追跡終了`;
  const wanted=new Set();for(let ty=Math.max(0,Math.floor(top/(256*scale)));ty<=Math.min(n-1,Math.floor((top+h)/(256*scale)));ty++)for(let tx=Math.floor(left/(256*scale));tx<=Math.floor((left+w)/(256*scale));tx++){
  const key=`${zi}/${tx}/${ty}`;wanted.add(key);let img=[...layer.children].find(i=>i.dataset.tile===key);
  if(!img){img=document.createElement('img');img.dataset.tile=key;img.alt='';img.draggable=false;img.src=`https://tile.openstreetmap.org/${zi}/${((tx%n)+n)%n}/${ty}.png`;layer.appendChild(img)}
@@ -557,9 +700,15 @@ function renderAnnualSide(side){
  }for(const img of [...layer.children])if(!wanted.has(img.dataset.tile))img.remove();
  svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.replaceChildren();const ns='http://www.w3.org/2000/svg';
  for(const s of storms){const picked=annualPicked[side]===s.id,points=s.track.map(t=>{const p=project(t.lat,t.lon,z);return[p.x-left,p.y-top]});if(!points.length)continue;
- // Split wrapped tracks at the dateline to avoid a false line across the entire map.
- let d='',prev=null;for(const p of points){d+=(!prev||Math.abs(p[0]-prev[0])>256*2**z/2?'M':'L')+p[0].toFixed(1)+' '+p[1].toFixed(1)+' ';prev=p}
- const path=document.createElementNS(ns,'path');path.setAttribute('d',d);path.setAttribute('fill','none');path.setAttribute('stroke',picked?'#ffffff':annualHue(s));path.setAttribute('stroke-width',picked?4.5:2.2);path.setAttribute('stroke-opacity',picked?1:.83);path.setAttribute('stroke-linejoin','round');path.setAttribute('stroke-linecap','round');svg.appendChild(path);
+ const make=(tag,attrs)=>{const n=document.createElementNS(ns,tag);for(const [k,v]of Object.entries(attrs))n.setAttribute(k,v);svg.appendChild(n);return n};
+ // Preserve individual tropical-track colours; ET is always slate and dashed.
+ for(let i=1;i<points.length;i++){
+  const a=points[i-1],b=points[i];if(Math.abs(b[0]-a[0])>256*2**z/2)continue;
+  const h=segmentObservation(s.track[i-1],s.track[i]),et=h.phase==='extratropical';
+  if(picked)make('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'#ffffff','stroke-width':6,'stroke-opacity':.8});
+  make('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:et?'#697b8f':annualHue(s),'stroke-width':picked?3.5:2.2,'stroke-opacity':picked?1:.9,'stroke-linecap':'round',...(et?{'stroke-dasharray':'6 3'}:{})});
+ }
+ trackMarkers(s.track,t=>{const p=project(t.lat,t.lon,z);return {x:p.x-left,y:p.y-top}},make);
  if(picked){const start=points[0];const circle=document.createElementNS(ns,'circle');for(const [k,v] of Object.entries({cx:start[0],cy:start[1],r:5,fill:'#fff',stroke:'#1d4058','stroke-width':2}))circle.setAttribute(k,v);svg.appendChild(circle)}
  }
 }
@@ -612,30 +761,51 @@ function renderLifetime(s,index){
  const ns='http://www.w3.org/2000/svg';
  const make=(tag,attrs)=>{const n=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);svg.appendChild(n);return n};
  const xy=t=>{const p=project(t.lat,t.lon,z);return{x:p.x-left,y:p.y-top}};
+ drawLifetimeField(svg,s,index,xy,w,h,left,top,z);
+ renderFieldBudget(s,index);
  for(let i=1;i<tr.length;i++){
   const a=xy(tr[i-1]),b=xy(tr[i]);make('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:'#142f46','stroke-width':6,'stroke-opacity':'.65','stroke-linecap':'round'});
-  make('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:trackColor(tr[i]),'stroke-width':3.6,'stroke-linecap':'round'});
+  make('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:trackColor(segmentObservation(tr[i-1],tr[i])),'stroke-width':3.6,'stroke-linecap':'round'});
  }
  const stride=Math.max(1,Math.ceil(tr.length/95));
  tr.forEach((t,i)=>{if(i%stride!==0&&i!==index&&i!==tr.length-1&&i!==0)return;
   const p=xy(t),active=i===index;
-  const dot=make('circle',{cx:p.x,cy:p.y,r:active?6.5:3.3,fill:trackColor(t),stroke:active?'#ffffff':'#193247','stroke-width':active?2.4:1.1,'data-step':i});
+  const dot=make('circle',{cx:p.x,cy:p.y,r:active?6.5:3.3,fill:trackColor(t.phase==='ended'&&i?tr[i-1]:t),stroke:active?'#ffffff':'#193247','stroke-width':active?2.4:1.1,'data-step':i});
   dot.addEventListener('click',()=>{replay=i;renderDetails()});
   const title=document.createElementNS(ns,'title');title.textContent=`${fmt(t.t)} UTC / ${t.p}hPa / ${t.wind}m/s`;dot.appendChild(title);
  });
+ trackMarkers(tr,xy,make);
  const current=tr[index];el('fullscreenTitle').textContent=`🗺️ ${s.id}・生涯進路図`;el('fullscreenInfo').textContent=`${fmt(tr[index].t)} UTC ｜ ${tr[index].p}hPa / ${tr[index].wind}m/s`;el('lifetimeInfo').textContent=`選択地点：${fmt(current.t)} UTC ｜ 北緯 ${current.lat.toFixed(1)}°・東経 ${current.lon.toFixed(1)}° ｜ ${current.p} hPa / ${current.wind} m/s`;
- el('lifetimeLegend').innerHTML=[['#65c9e6','熱帯低気圧'],['#56c776','台風'],['#f0c760','発達'],['#f78d60','強い'],['#b37aff','非常に強い'],['#e86fc5','猛烈'],['#9aa8b8','温帯・終了']].map(([c,n])=>`<span><i style="background:${c}"></i>${n}</span>`).join('');
+ el('lifetimeLegend').innerHTML=[['#65c9e6','熱帯低気圧'],['#56c776','台風'],['#f0c760','発達'],['#f78d60','強い'],['#b37aff','非常に強い'],['#e86fc5','猛烈'],['#697b8f','温帯低気圧']].map(([c,n])=>`<span><i style="background:${c}"></i>${n}</span>`).join('')+'<span>◇ 温帯化</span><span>× 追跡終了</span>';
 }
-function trackColor(t){if(t.phase==='extratropical'||t.phase==='ended')return '#9aa8b8';if(t.wind<17)return '#65c9e6';if(t.wind<25)return '#56c776';return color(t.wind)}
+// Ended is a tracking status, not a meteorological phase. Infer the final
+// segment's weather from its previous observation, including legacy records.
+function segmentObservation(a,b){return b.phase==='ended'||(b.phase==='extratropical'&&a.phase!=='extratropical')?a:b}
+function trackMarkers(tr,xy,make){
+ const first=tr.findIndex(t=>t.phase==='extratropical');
+ if(first>=0){const p=xy(tr[first]),r=5;
+  const n=make('path',{d:`M ${p.x} ${p.y-r} L ${p.x+r} ${p.y} L ${p.x} ${p.y+r} L ${p.x-r} ${p.y} Z`,fill:'#697b8f',stroke:'#ffffff','stroke-width':1.7,'data-track-marker':'transition'});
+  const title=document.createElementNS('http://www.w3.org/2000/svg','title');title.textContent=`温帯化 ${fmt(tr[first].t)} UTC`;n.appendChild(title);
+ }
+ const last=tr.at(-1);if(last?.phase==='ended'){
+  const p=xy(last),r=4.5;
+  make('circle',{cx:p.x,cy:p.y,r:6.5,fill:'#173348','fill-opacity':.8});
+  const n=make('path',{d:`M ${p.x-r} ${p.y-r} L ${p.x+r} ${p.y+r} M ${p.x+r} ${p.y-r} L ${p.x-r} ${p.y+r}`,fill:'none',stroke:'#ffffff','stroke-width':2.2,'data-track-marker':'end'});
+  const title=document.createElementNS('http://www.w3.org/2000/svg','title');title.textContent=`追跡終了 ${fmt(last.t)} UTC`;n.appendChild(title);
+ }
+}
+function trackColor(t){if(t.phase==='extratropical')return '#697b8f';if(t.wind<17)return '#65c9e6';if(t.wind<25)return '#56c776';return color(t.wind)}
 
 function renderMap(){
  renderTiles();const svg=el('trackLayer'),{w,h,left,top}=mapGeometry();svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
  const ns='http://www.w3.org/2000/svg';svg.replaceChildren();
  const node=(tag,attrs,parent=svg)=>{let n=document.createElementNS(ns,tag);for(let [k,v] of Object.entries(attrs))n.setAttribute(k,v);parent.appendChild(n);return n};
+ drawObserveField(svg,w,h,left,top);
  const screen=(lat,lon)=>{let p=project(lat,lon,map.zoom);return{x:p.x-left,y:p.y-top}};
  for(let s of state.storms.filter(s=>!s.done)){
   const tr=s.track;if(!tr.length)continue;
-  for(let i=1;i<tr.length;i++){let a=screen(tr[i-1].lat,tr[i-1].lon),b=screen(tr[i].lat,tr[i].lon);node('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:color(tr[i].wind),'stroke-width':s.id===selected?3:2,'stroke-opacity':.85})}
+  for(let i=1;i<tr.length;i++){let a=screen(tr[i-1].lat,tr[i-1].lon),b=screen(tr[i].lat,tr[i].lon);node('line',{x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:trackColor(segmentObservation(tr[i-1],tr[i])),'stroke-width':s.id===selected?3:2,'stroke-opacity':.85})}
+  trackMarkers(tr,t=>screen(t.lat,t.lon),node);
   let t=tr[tr.length-1],pos=screen(t.lat,t.lon);
   if(s.id===selected&&t.radii){
    // Independent N/E/S/W radii; kilometers converted using Web Mercator at the storm latitude.
@@ -648,8 +818,196 @@ function renderMap(){
    if(Math.max(...t.radii.g)>0)node('path',{d:windPath(t.radii.g),fill:'#ffe348','fill-opacity':'.25',stroke:'#d6a500','stroke-width':2,'stroke-opacity':'.95'});
    if(Math.max(...t.radii.b)>0)node('path',{d:windPath(t.radii.b),fill:'#ff4c49','fill-opacity':'.31',stroke:'#e52f32','stroke-width':2,'stroke-opacity':'.95'});
   }
-  let circle=node('circle',{cx:pos.x,cy:pos.y,r:s.id===selected?8:6,fill:color(t.wind),stroke:'white','stroke-width':1.5,'data-storm':s.id,style:'pointer-events:all;cursor:pointer'});node('title',{},circle).textContent=s.id;
+  let circle=node('circle',{cx:pos.x,cy:pos.y,r:s.id===selected?8:6,fill:trackColor(t),stroke:'white','stroke-width':1.5,'data-storm':s.id,style:'pointer-events:all;cursor:pointer'});node('title',{},circle).textContent=s.id;
  }
 }
+// The field identity describes equations, not the application UI version.
+// Future equation changes MUST use a new identity and retain an evaluator or
+// report unsupported history. A missing identity is never inferred from dates.
+const FIELD_MODEL_ID='ta016';
+const FLOW_NAMES={gyre:'モンスーン渦',block:'別の高気圧域',ridge:'太平洋高気圧',trade:'貿易風',monsoon:'モンスーン流',trough:'気圧の谷',jet:'偏西風',synoptic:'小規模変動'};
+const FLOW_COLORS={gyre:'#ce61cb',block:'#b66adb',ridge:'#f2ab40',trade:'#25aaa2',monsoon:'#2bbb77',trough:'#5997e7',jet:'#3164de',synoptic:'#eb737f',total:'#132b49',front:'#d9653e'};
+const flowInputs=new WeakMap();
+function steeringBudget(lat,lon,wind,previousEast,previousNorth,t){
+ const parts=steeringComponents(lat,lon,t),depth=clamp((wind-12)/25,0,1),weighted={};
+ let u=0,v=0;
+ for(const [name,p] of Object.entries(parts)){
+  const w=name==='jet'||name==='trough'?.35+.65*depth:name==='monsoon'||name==='trade'?1.15-.15*depth:1;
+  weighted[name]={east:p.east*w,north:p.north*w,weight:w};u+=p.east*w;v+=p.north*w;
+ }
+ const target={east:clamp(u,-45,58),north:clamp(v,-30,40)};
+ const initialized=!Number.isFinite(previousEast)||!Number.isFinite(previousNorth);
+ const pe=initialized?target.east:previousEast,pn=initialized?target.north:previousNorth;
+ const motionEast=.61*pe+.39*target.east,motionNorth=.61*pn+.39*target.north;
+ const beta=clamp(wind/25,.25,1.4)*clamp(Math.abs(lat)/8,0,1);
+ return {parts,weighted,raw:{east:u,north:v},target,depth,initialized,
+  previous:{east:pe,north:pn},memory:{east:.61*pe,north:.61*pn},
+  clipping:{east:target.east-u,north:target.north-v},beta:{east:-1.4*beta,north:4.2*beta},
+  motionEast,motionNorth,east:motionEast-1.4*beta,north:motionNorth+4.2*beta};
+}
+function markFieldTime(t){
+ const a=state.fieldEpochs||(state.fieldEpochs=[]),last=a.at(-1);
+ if(last&&last.model===FIELD_MODEL_ID&&t>=last.from&&t<=last.to+21600000)last.to=Math.max(last.to,t);
+ else a.push({from:t,to:t,model:FIELD_MODEL_ID});
+}
+function fieldProvenance(h){
+ if(!h||!h.fm)return {supported:true,exact:false,label:'参考再計算：記録にモデル版なし。現行式でこの日時を計算（当時の場とは断定不可）'};
+ if(h.fm!==FIELD_MODEL_ID)return {supported:false,exact:false,label:'この記録の気象モデルは未対応。環境場・寄与は再現できません。'};
+ return {supported:true,exact:true,label:'記録の気象モデルから再現（TA016）'};
+}
+// Lossless compact input storage: four Float64 values and one integer wind.
+// Non-integer imported wind values use the readable array fallback.
+function packSteeringInputs(v){
+ if(!Number.isInteger(v[2])||v[2]<0||v[2]>255)return v;
+ const bytes=new Uint8Array(33),d=new DataView(bytes.buffer);
+ for(const [i,k]of [0,1,3,4].entries())d.setFloat64(i*8,v[k]===null?NaN:v[k],true);
+ bytes[32]=v[2];return 'b1:'+btoa(String.fromCharCode(...bytes));
+}
+function readSteeringInputs(h){
+ let v=h?.si;
+ if(typeof v==='string'){
+  if(!v.startsWith('b1:'))return null;
+  try{const s=atob(v.slice(3));if(s.length!==33)return null;const a=Uint8Array.from(s,c=>c.charCodeAt(0)),d=new DataView(a.buffer),z=[0,1,2,3].map(i=>d.getFloat64(i*8,true));v=[z[0],z[1],a[32],Number.isNaN(z[2])?null:z[2],Number.isNaN(z[3])?null:z[3]]}catch(e){return null}
+ }
+ if(!Array.isArray(v)||v.length!==5||!v.slice(0,3).every(Number.isFinite)||!v.slice(3).every(x=>x===null||Number.isFinite(x)))return null;
+ return v;
+}
+function movementForObservation(h){
+ const p=fieldProvenance(h),v=readSteeringInputs(h);if(!p.exact||!v)return null;
+ return steeringBudget(...v,h.t);
+}
+function fieldSample(lat,lon,t,mode,wind=37){
+ if(mode==='front')return {gradient:frontalEnvironment(lat,lon,t).gradient};
+ const b=steeringBudget(lat,lon,wind,null,null,t);
+ return mode==='total'?b.target:(b.weighted[mode]||{east:0,north:0});
+}
+function svgNode(parent,tag,attrs){const n=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const[k,v]of Object.entries(attrs))n.setAttribute(k,v);parent.appendChild(n);return n}
+function fieldArrow(group,x,y,dx,dy,color){
+ const len=Math.hypot(dx,dy);if(len<.6){svgNode(group,'circle',{cx:x,cy:y,r:1.5,fill:color});return}
+ const ux=dx/len,uy=dy/len,h=4;
+ svgNode(group,'path',{d:`M ${x} ${y} l ${dx} ${dy} m ${-ux*h-uy*h*.65} ${-uy*h+ux*h*.65} l ${ux*h+uy*h*.65} ${uy*h-ux*h*.65} l ${-ux*h+uy*h*.65} ${-uy*h-ux*h*.65}`,fill:'none',stroke:color,'stroke-width':1.6,'stroke-linecap':'round'});
+}
+function renderFieldOverlay(svg,xy,inverse,w,h,t,mode,wind=37,provenance={supported:true}){
+ if(mode==='off'||!provenance.supported)return;
+ const group=svgNode(svg,'g',{'data-environment':'TA016','pointer-events':'none'});
+ // Screen-space sampling bounds DOM and computation even at high zoom.
+ const spacing=Math.max(45,Math.sqrt(w*h/140)),cols=Math.max(1,Math.floor(w/spacing)),rows=Math.max(1,Math.floor(h/spacing));
+ const dx=w/cols,dy=h/rows;
+ for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){
+  const x=(i+.5)*dx,y=(j+.5)*dy,p=inverse(x,y);if(p.lat< -5||p.lat>75)continue;
+  const f=fieldSample(p.lat,p.lon,t,mode,wind);
+  if(mode==='front'){svgNode(group,'rect',{x:i*dx,y:j*dy,width:dx+.5,height:dy+.5,fill:'#c74621','fill-opacity':.6*clamp(f.gradient/3,0,1)});continue}
+  // Arrow length encodes km/h at a fixed display scale, NOT displacement on map.
+  // Geographic direction is projected (Mercator) before normalization.
+  const a=xy(p.lat,p.lon),b=xy(p.lat+f.north/111.2,p.lon+f.east/(111.2*Math.max(.25,Math.cos(p.lat*rad))));
+  const px=b.x-a.x,py=b.y-a.y,l=Math.hypot(px,py),speed=Math.hypot(f.east,f.north);
+  if(l>0)fieldArrow(group,x,y,px/l*speed*.7,py/l*speed*.7,FLOW_COLORS[mode]);
+ }
+ const detail=steeringComponents(25,140,t,true),g=circulationGeometry(t);
+ const labels=[];
+ if(mode==='total'||mode==='ridge')labels.push([detail.ridgeLat,detail.ridgeLon,'高',FLOW_COLORS.ridge]);
+ if((mode==='total'||mode==='block')&&g.blocking>.01)labels.push([g.blockLat,g.blockLon,'高₂',FLOW_COLORS.block]);
+ if((mode==='total'||mode==='gyre'||mode==='monsoon')&&g.gyreStrength>.01)labels.push([g.gyreLat,g.gyreLon,'渦',FLOW_COLORS.gyre]);
+ for(const[lat,lon,label,c]of labels){const p=xy(lat,lon);if(p.x< -30||p.x>w+30||p.y< -30||p.y>h+30)continue;svgNode(group,'circle',{cx:p.x,cy:p.y,r:12,fill:'#ffffff','fill-opacity':.88,stroke:c,'stroke-width':2});svgNode(group,'text',{x:p.x,y:p.y+4,'text-anchor':'middle',fill:'#18304a','font-size':12,'font-weight':'bold'}).textContent=label}
+}
+function flowOptions(){return [['off','表示しない'],['total','合成環境流'],...Object.entries(FLOW_NAMES),['front','前線の温度傾度']].map(([v,n])=>`<option value="${v}">${n}</option>`).join('')}
+function fieldGeometryText(t){
+ const g=circulationGeometry(t),q=steeringComponents(25,140,t,true),c=steeringComponents(q.ridgeLat,q.ridgeLon,t,true);
+ return `高気圧中心 ${q.ridgeLat.toFixed(1)}°N / ${q.ridgeLon.toFixed(1)}°E、強度パラメータ ${c.ridgeStrength.toFixed(1)}km/h（中心の風速や中心気圧ではありません）。別の高気圧域の活動指数 ${g.blocking.toFixed(2)}、モンスーン渦の強度パラメータ ${g.gyreStrength.toFixed(1)}km/h。`;
+}
+function fieldLegend(mode,wind,provenance){
+ if(!provenance.supported)return provenance.label;
+ const desc=mode==='front'?'赤い濃淡＝温度傾度の近似（0〜3 K/100km、上限で同じ濃さ）':`矢印＝${mode==='total'?'強度に応じて重み付け・上限処理した環境流':FLOW_NAMES[mode]||'環境流'}。10km/h＝7px。慣性・β効果は矢印に含めません。`;
+ return provenance.label+' ｜ '+desc+` 強度基準 ${wind.toFixed(1)}m/s。高・高₂・渦はモデルの中心。等圧線・海面気圧・モンスーントラフ軸は未実装。`;
+}
+function bindFieldControls(){
+ for(const id of ['fieldObserve','fieldLife','fieldFull'])el(id).innerHTML=flowOptions();
+ el('fieldObserve').value='off';el('fieldLife').value='off';el('fieldFull').value='off';
+ el('fieldObserve').onchange=renderMap;
+ const change=e=>{el('fieldLife').value=e.target.value;el('fieldFull').value=e.target.value;const s=getSelected();if(s)renderLifetime(s,clamp(replay??s.track.length-1,0,s.track.length-1))};
+ el('fieldLife').onchange=change;el('fieldFull').onchange=change;
+ el('fieldBudgetBox').ontoggle=()=>{const s=getSelected();if(s&&el('fieldBudgetBox').open)renderFieldBudget(s,clamp(replay??s.track.length-1,0,s.track.length-1))};
+}
+function drawObserveField(svg,w,h,left,top){
+ const mode=el('fieldObserve').value||'off',xy=(lat,lon)=>{const p=project(lat,lon,map.zoom);return{x:p.x-left,y:p.y-top}},inv=(x,y)=>unproject(x+left,y+top,map.zoom);
+ renderFieldOverlay(svg,xy,inv,w,h,state.clock,mode,37);
+ el('fieldObserveInfo').textContent=mode==='off'?'気象場は現在時刻に連動します。表示は進路計算に影響しません。':fmt(state.clock)+' UTC ｜ '+fieldLegend(mode,37,{supported:true,label:'現行モデルの現在の場（深い循環基準）'})+' '+fieldGeometryText(state.clock);
+}
+function drawLifetimeField(svg,s,index,xy,w,h,left,top,z){
+ const hst=s.track[index],mode=el('fieldLife').value||'off',p=fieldProvenance(hst),wind=readSteeringInputs(hst)?.[2]??hst.wind;
+ renderFieldOverlay(svg,(lat,lon)=>xy({lat,lon}),(x,y)=>unproject(x+left,y+top,z),w,h,hst.t,mode,wind,p);
+ const note=fmt(hst.t)+' UTC ｜ '+(mode==='off'?p.label:fieldLegend(mode,wind,p));
+ el('fieldLifeInfo').textContent=note+(mode!=='off'&&p.supported?' '+fieldGeometryText(hst.t):'');el('fieldFullInfo').textContent=note;
+}
+const flowNum=x=>Number.isFinite(x)?x.toFixed(2):'—';
+function vectorDescription(e,n){let angle=(Math.atan2(e,n)*180/Math.PI+360)%360;return `${Math.hypot(e,n).toFixed(2)}km/h・北から時計回り${angle.toFixed(1)}°`}
+function renderFieldBudget(s,index){
+ if(!el('fieldBudgetBox').open)return;
+ const h=s.track[index],root=el('fieldBudget'),p=fieldProvenance(h),b=movementForObservation(h),input=readSteeringInputs(h);root.replaceChildren();
+ const paragraph=text=>{const n=document.createElement('p');n.textContent=text;root.appendChild(n)};
+ paragraph(fmt(h.t)+' UTC ｜ '+p.label);
+ if(!b){paragraph(p.exact?'この観測点には対応する移動入力がありません（発生時・未対応形式など）。環境場のみ再現できます。':'旧記録には移動前の精密位置・慣性がないため、実際の寄与は分解できません。現行式の参考場と当時の進路を因果関係として断定しません。');return}
+ paragraph(`この時刻に終わる6時間更新の計算。評価地点は移動前の北緯${input[0].toFixed(3)}°・東経${input[1].toFixed(3)}°、更新前の風速${input[2]}m/s。到達点周辺の矢印とは評価地点が異なります。`);
+ const table=document.createElement('table');table.className='field-table';
+ const header=document.createElement('tr');for(const t of ['成分','重み','重み後 東 km/h','重み後 北 km/h','慣性適用後 東 / 北']){const th=document.createElement('th');th.textContent=t;header.appendChild(th)}table.appendChild(header);
+ for(const [k,v]of Object.entries(b.weighted)){const row=document.createElement('tr');for(const t of [FLOW_NAMES[k],flowNum(v.weight),flowNum(v.east),flowNum(v.north),flowNum(v.east*.39)+' / '+flowNum(v.north*.39)]){const td=document.createElement('td');td.textContent=t;row.appendChild(td)}table.appendChild(row)}
+ const wrap=document.createElement('div');wrap.className='field-scroll';wrap.appendChild(table);root.appendChild(wrap);
+ paragraph(`重み付け合計：東${flowNum(b.raw.east)}・北${flowNum(b.raw.north)}km/h。上限処理の差分：東${flowNum(b.clipping.east)}・北${flowNum(b.clipping.north)}km/h（この差分にも0.39を掛けます）。`);
+ paragraph(`前ステップの移動の持越し（0.61倍）：東${flowNum(b.memory.east)}・北${flowNum(b.memory.north)}km/h。β効果：東${flowNum(b.beta.east)}・北${flowNum(b.beta.north)}km/h。${b.initialized?'初回の慣性は現在の環境流で初期化しています。':''}`);
+ paragraph(`合成した移動：東${flowNum(b.east)}・北${flowNum(b.north)}km/h（${vectorDescription(b.east,b.north)}）。各成分×0.39＋上限差分×0.39＋持越し＋β効果。単純な「寄与率%」ではありません。`);
+ const lat=clamp(input[0]+b.north*6/111.2,-5,75),lon=input[1]+b.east*6/(111.2*Math.max(.25,Math.cos(lat*rad)));
+ paragraph(`計算上の到達点：${lat.toFixed(3)}°N / ${lon.toFixed(3)}°E。記録点：${h.lat.toFixed(3)}°N / ${h.lon.toFixed(3)}°E。緯度の範囲制限と経度換算を含みます。`);
+ paragraph('これは更新式の加算項の分解です。高気圧だけを除いた場合の将来進路など、要因を除去した因果効果を表すものではありません。');
+}
+const fieldYearCache=new Map();
+function annualFieldStats(y){
+ const end=Math.min(Date.UTC(y+1,0,1)-21600000,state.clock),start=Date.UTC(y,0,1),epochs=state.fieldEpochs||[];
+ const key=y+':'+end+':'+JSON.stringify(epochs.filter(e=>e.to>=start&&e.from<=end));
+ if(fieldYearCache.has(key))return fieldYearCache.get(key);
+ const values=[],possible=Math.max(0,Math.floor((end-start)/21600000)+1);
+ for(let t=start;t<=end;t+=21600000){if(!epochs.some(e=>e.model===FIELD_MODEL_ID&&t>=e.from&&t<=e.to))continue;
+  const q=steeringComponents(25,140,t,true),r=basinRegime(t),at=steeringComponents(20,130,t),center=steeringComponents(q.ridgeLat,q.ridgeLon,t,true);
+  values.push({lat:q.ridgeLat,lon:q.ridgeLon,ridge:center.ridgeStrength,west:at.ridge.east,monsoon:r.monsoon,jet:steeringComponents(35,145,t).jet.east});
+ }
+ const summary=k=>{const a=values.map(v=>v[k]);return a.length?{mean:a.reduce((x,y)=>x+y,0)/a.length,min:Math.min(...a),max:Math.max(...a)}:null};
+ const result={count:values.length,possible,lat:summary('lat'),lon:summary('lon'),ridge:summary('ridge'),west:summary('west'),monsoon:summary('monsoon'),jet:summary('jet')};
+ if(fieldYearCache.size>12)fieldYearCache.clear();fieldYearCache.set(key,result);return result;
+}
+function annualTrackFacts(y){
+ const storms=state.storms.filter(s=>year(s.born)===y),facts=[];
+ for(const s of storms){let km=0,west=0,north=0,ne=0,turn=false,seenWest=false,stall=false;const tr=s.track;
+  for(let i=1;i<tr.length;i++){const a=tr[i-1],b=tr[i],dx=(b.lon-a.lon)*111.2*Math.cos((a.lat+b.lat)*rad/2),dy=(b.lat-a.lat)*111.2,d=Math.hypot(dx,dy);km+=d;if(dx< -20){west+=6;seenWest=true}if(dy>20)north+=6;if(dx>20&&dy>20){ne+=6;if(seenWest&&b.lat>20)turn=true}if(i>=4&&geoDistance(b.lat,b.lon,tr[i-4].lat,tr[i-4].lon)<50)stall=true}
+  if(tr.length)facts.push({s,km,west,north,ne,turn,stall,days:(tr.at(-1).t-s.born)/86400000,minP:Math.min(...tr.map(h=>h.p))});
+ }
+ return facts;
+}
+function appendFieldYear(block,y){
+ const details=document.createElement('details');details.className='field-year';const summary=document.createElement('summary');summary.textContent='年間の気象場・進路の記録を調べる';details.appendChild(summary);block.appendChild(details);
+ details.ontoggle=()=>{if(!details.open||details.dataset.loaded==='yes')return;details.dataset.loaded='yes';
+ const root=document.createElement('div');root.className='field-year-content';details.appendChild(root);
+ const add=text=>{const p=document.createElement('p');p.textContent=text;root.appendChild(p)};
+ const f=annualFieldStats(y);add(`【モデルから再現した場】版が記録された6時間時刻 ${f.count} / 対象 ${f.possible} 時刻。途中年は現在時刻まで。旧版・未対応版・未観測期間は集計に含めません。`);
+ if(f.count){for(const [k,label,unit]of [['lat','高気圧中心緯度','°N'],['lon','高気圧中心経度','°E'],['ridge','中心での高気圧強度パラメータ','km/h'],['west','北緯20°東経130°の高気圧成分（東向き正）','km/h'],['monsoon','広域モンスーン活動指数',''],['jet','北緯35°東経145°の偏西風成分（東向き正）','km/h']])add(`${label}：平均${flowNum(f[k].mean)}${unit}、範囲${flowNum(f[k].min)}〜${flowNum(f[k].max)}${unit}`)}else add('この年のモデル版の記録がないため、当時の気象場の年間特徴は確定できません。進路の記録だけを以下に集計します。');
+ const a=annualTrackFacts(y),n=a.length;if(!n)return;
+ add(`【保存進路の事実・出生年別】${n}個体。発生地点平均：${(a.reduce((v,x)=>v+x.s.track[0].lat,0)/n).toFixed(2)}°N / ${(a.reduce((v,x)=>v+x.s.track[0].lon,0)/n).toFixed(2)}°E。西進区間あり${a.filter(x=>x.west>0).length}、北上区間あり${a.filter(x=>x.north>0).length}、西進後の北東進候補${a.filter(x=>x.turn).length}、停滞候補${a.filter(x=>x.stall).length}。分類は重複します。`);
+ add('西進/北上は6時間で東西/南北20km超、転向候補は西進後の北緯20°以北で東・北とも20km超、停滞候補は24時間の正味移動50km未満。気象学的な公式分類ではありません。');
+ for(const [label,key,reverse]of [['最低気圧の個体（温帯段階含む）','minP',false],['生涯が長い個体','days',true],['進路が長い個体','km',true]]){
+  const best=[...a].sort((x,y)=>(x[key]-y[key])*(reverse?-1:1))[0],button=document.createElement('button');button.type='button';button.textContent=`${label}：${best.s.id}（${flowNum(best[key])}${key==='minP'?'hPa':key==='days'?'日':'km'}${best.s.done?'':'・追跡中'}）`;button.onclick=()=>openStorm(best.s.id);root.appendChild(button);
+ }
+ add('【解釈の範囲】環境の平均値と進路傾向の併記です。「高気圧が原因でこの年は西進が増えた」などの因果総評は自動生成していません。個体詳細の同時刻の場と移動内訳で検討できます。');
+ };
+}
+
+const APP_VERSION='0.3.17';
+function makeArchiveExport(now=new Date()){
+ const pad=(n,w=2)=>String(n).padStart(w,'0');
+ const day=pad(now.getFullYear(),4)+pad(now.getMonth()+1)+pad(now.getDate());
+ const time=pad(now.getHours())+pad(now.getMinutes())+pad(now.getSeconds())+'_'+pad(now.getMilliseconds(),3);
+ const offset=-now.getTimezoneOffset(),sign=offset>=0?'+':'-',abs=Math.abs(offset);
+ const exportedAt=pad(now.getFullYear(),4)+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds())+'.'+pad(now.getMilliseconds(),3)+sign+pad(Math.floor(abs/60))+':'+pad(abs%60);
+ return {filename:`TYPHOON_ARCHIVE_v${APP_VERSION}_${day}_${time}.json`,
+  data:{...state,exportMetadata:{appVersion:APP_VERSION,exportedAt,exportedAtUtc:now.toISOString()}}};
+}
+
 init()})();
 </script></body></html>
